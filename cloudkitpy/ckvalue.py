@@ -1,6 +1,6 @@
 #
 # ckvalue.py
-# Puck
+# CloudKitPy
 #
 # Created by James Barrow on 27/04/2016.
 # Copyright (c) 2013-2016 Pig on a Hill Productions. All rights reserved.
