@@ -26,7 +26,6 @@ setup(
     license=cloudkitpy.__license__,
     zip_safe=False,
     packages=['cloudkitpy'],
-    scripts=['scripts/cloudkitpy'],
     install_requires=['ecdsa', 'requests'],
     classifiers=[
         'Development Status :: 1 - Development',
