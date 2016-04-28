@@ -12,7 +12,7 @@ import datetime
 import time
 
 
-def CKValue(value): # noqa
+def CKValue(value):  # noqa
     """Describes the CloudKit web services protocol.
 
     Several common dictionaries are used by multiple requests and responses
