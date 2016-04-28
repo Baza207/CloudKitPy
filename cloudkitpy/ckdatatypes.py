@@ -1,5 +1,5 @@
 #
-# ckhelpers.py
+# ckdatatypes.py
 # CloudKitPy
 #
 # Created by James Barrow on 27/04/2016.
@@ -9,7 +9,7 @@
 # !/usr/bin/env python
 
 
-class CKHelpers:
+class CKDataTypes:
     """Describes the CloudKit web services protocol.
 
     Several common dictionaries are used by multiple requests and responses
