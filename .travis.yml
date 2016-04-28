@@ -1,0 +1,13 @@
+language: python
+python:
+    - "2.6"
+    - "2.7"
+# command to install
+install:
+    - pip install flake8
+    - python setup.py install
+# command to run before scripts
+before_script:
+    - flake8 --max-complexity=10 --statistics --exclude=migrations --benchmark .
+# command to run scripts
+script: nosetests
