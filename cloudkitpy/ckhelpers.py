@@ -19,17 +19,6 @@ class CKHelpers:
     # References for Types and Dictionaries can be found at:
     # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/Types/Types.html
 
-    # Actions for a Reference Dictionary
-    # The delete action for the reference object.
-    NONE = 'NONE'
-    """No action when a referenced record is deleted."""
-    DELETE_SELF = 'DELETE_SELF'
-    """Deletes a source record when the target record is deleted."""
-    VALIDATE = 'VALIDATE'
-    """Deletes a target record only after all source records are deleted.
-     Verifies that the target record exists before creating this type of
-     reference. If it doesn't exist, creating the reference fails."""
-
     @classmethod
     def asset_dictionary(
         cls,
