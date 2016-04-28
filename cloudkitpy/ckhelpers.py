@@ -214,15 +214,6 @@ class CKHelpers:
             'deleted': deleted
         }
 
-    # TODO: Impliment when needed
-    # @classmethod
-    # def record_field_dictionary(
-    #     cls
-    # ):
-    #     return {
-    #         '': ,
-    #     }
-
     @classmethod
     def reference_dictionary(
         cls,
