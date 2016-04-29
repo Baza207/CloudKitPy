@@ -13,6 +13,9 @@ class Database:
 
     container_identifier = None
 
+    def __init__(self, container_identifier):
+        self.container_identifier = container_identifier
+
     # Accessing Records
 
     def save_records(self, records, zone_id=None):
