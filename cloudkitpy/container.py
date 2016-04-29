@@ -22,11 +22,20 @@ class Container:
     environment = None
     apns_environment = None
 
+    # Getting tokens and cert path
+
+    api_token = None
+    server_to_server_key = None
+    cert_path = None
+
     def __init__(
         self,
         container_identifier,
         environment,
-        apns_environment=None
+        apns_environment=None,
+        api_token=None,
+        server_to_server_key=None,
+        cert_path=None
     ):
         pass
 
