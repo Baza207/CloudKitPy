@@ -43,15 +43,27 @@ class CloudKit:
 
     def get_default_container(self):
         """Return the default container."""
-        pass
+        if len(self.__containers) > 0:
+            return self.__containers[0]
+        else:
+            return None
 
     def get_container(self, container_identifier):
         """Return the container with the specified container ID."""
-        pass
+        container = None
+        try:
+            container = next(
+                item for item in self.__containers
+                if item.container_identifier == container_identifier
+            )
+        except StopIteration:
+            pass
+
+        return container
 
     def get_all_containers(self):
         """Return all the containers that were configured."""
-        pass
+        return self.__containers
 
     # Server Requests
 
