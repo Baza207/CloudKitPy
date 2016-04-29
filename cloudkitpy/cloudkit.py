@@ -81,12 +81,17 @@ class CloudKit:
         encoded = self.__encode_string(hashed)
         return encoded
 
-    def __cloud_kit_path(self, database, operation_subpath):
+    def __cloud_kit_path(
+        self,
+        database,
+        container,
+        operation_subpath
+    ):
         return os.path.join(
             '/database',
             self.__ck_version,
-            self.__container_identifier,
-            self.__environment,
+            container.container_identifier,
+            container.environment,
             database,
             operation_subpath
         )
@@ -109,22 +114,23 @@ class CloudKit:
     def __create_request(
         self,
         method,
+        container,
         database,
         operation_subpath,
         payload=''
     ):
         date = self.__iso_date()
-        path = self.__cloud_kit_path(database, operation_subpath)
+        path = self.__cloud_kit_path(database, container, operation_subpath)
         url = self.__root_path + path
 
         message = self.__create_message(date, payload, path)
         signed_message = self.__sign_message(
-            self.__cert_path,
+            container.cert_path,
             message
         )
 
         headers = {
-            'X-Apple-CloudKit-Request-KeyID': self.__server_to_server_key,
+            'X-Apple-CloudKit-Request-KeyID': container.server_to_server_key,
             'X-Apple-CloudKit-Request-ISO8601Date': date,
             'X-Apple-CloudKit-Request-SignatureV1': signed_message
         }
@@ -138,7 +144,12 @@ class CloudKit:
         print "Response: %s" % r.text
 
     def get_current_user(self):
-        self.__create_request('GET', 'public', 'users/current')
+        self.__create_request(
+            'GET',
+            self.get_default_container(),
+            'public',
+            'users/current'
+        )
 
     # Constants
 
