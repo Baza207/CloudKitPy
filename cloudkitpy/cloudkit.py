@@ -26,14 +26,14 @@ class CloudKit:
 
     def __init__(self, config):
         """Configure CloudKitPy."""
-        for config in config.containers:
+        for container_config in config.containers:
             container = Container(
-                config.container_identifier,
-                config.environment,
-                config.apns_environment,
-                config.api_token,
-                config.server_to_server_key,
-                config.cert_path
+                container_config.container_identifier,
+                container_config.environment,
+                container_config.apns_environment,
+                container_config.api_token,
+                container_config.server_to_server_key,
+                container_config.cert_path
             )
             self.__containers.append(container)
 
