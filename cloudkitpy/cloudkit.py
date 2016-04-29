@@ -78,15 +78,9 @@ class CloudKit:
      Verifies that the target record exists before creating this type of
      reference. If it doesn't exist, creating the reference fails."""
 
-    def __init__(self, config):
-        """Configure CloudKitPy."""
-        pass
-
-    def get_default_container(self):
-        return None
-
-    def get_container(self, container_id):
-        return None
-
-    def get_all_containers(self):
-        return []
+    __root_path = 'https://api.apple-cloudkit.com'
+    __ck_version = '1'
+    __container = None
+    __environment = None
+    __server_to_server_key = None
+    __cert_path = None
