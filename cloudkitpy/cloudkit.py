@@ -15,32 +15,29 @@ import os
 from ecdsa import SigningKey
 import ecdsa
 import requests
+from container import Container
 
 
 class CloudKit:
 
     __root_path = 'https://api.apple-cloudkit.com'
     __ck_version = '1'
-    __container_identifier = None
-    __environment = None
-    __server_to_server_key = None
-    __cert_path = None
+    __containers = []
 
     def __init__(self, config):
         """Configure CloudKitPy."""
-        container = None
-        try:
-            # Current setup just uses the first passed in container
-            container = config.containers[0]
-        except Exception, e:
-            raise e
+        for config in config.containers:
+            container = Container(
+                config.container_identifier,
+                config.environment,
+                config.apns_environment,
+                config.api_token,
+                config.server_to_server_key,
+                config.cert_path
+            )
+            self.__containers.append(container)
 
-        self.__container_identifier = container.container_identifier
-        self.__environment = container.environment
-        self.__server_to_server_key = container.server_to_server_key
-        self.__cert_path = container.cert_path
-
-        print "CloudKit Configured"
+        print "CloudKit: %d containers configured" % len(self.__containers)
 
     # Accessing Containers
 
