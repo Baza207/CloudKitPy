@@ -1,5 +1,5 @@
 #
-# ckdatatypes.py
+# datatypes.py
 # CloudKitPy
 #
 # Created by James Barrow on 27/04/2016.
