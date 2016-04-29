@@ -492,18 +492,21 @@ class User:
     first_name = None
     last_name = None
     email_address = None
+    is_discoverable = False
 
     def __init__(
         self,
         user_record_name,
         first_name,
         last_name,
-        email_address
+        email_address,
+        is_discoverable
     ):
         self.user_record_name = user_record_name
         self.first_name = first_name
         self.last_name = last_name
         self.email_address = email_address
+        self.is_discoverable = is_discoverable
 
     def update_with_json(self, json):
         """Populate the class from a JSON object."""
@@ -512,6 +515,7 @@ class User:
             self.first_name = json['firstName']
             self.last_name = json['lastName']
             self.email_address = json['emailAddress']
+            self.is_discoverable = json['isDiscoverable']
         except KeyError:
             pass
         except Exception, e:
@@ -523,7 +527,8 @@ class User:
             'userRecordName': self.user_record_name,
             'firstName': self.first_name,
             'lastName': self.last_name,
-            'emailAddress': self.email_address
+            'emailAddress': self.email_address,
+            'isDiscoverable': self.is_discoverable
         }
 
 
