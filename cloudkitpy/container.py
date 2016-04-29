@@ -11,8 +11,13 @@
 
 class Container:
 
+    # Getting the Public and Private Databases
+
     public_cloud_database = None
     private_cloud_database = None
+
+    # Getting the Identifier and Environment
+
     container_identifier = None
     environment = None
     apns_environment = None
@@ -24,6 +29,8 @@ class Container:
         apns_environment=None
     ):
         pass
+
+    # Discovering Users
 
     def fetch_user_info(self):
         """Fetch information about the current user asynchronously."""
