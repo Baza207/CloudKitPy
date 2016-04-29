@@ -107,6 +107,8 @@ class CloudKit:
         self.__server_to_server_key = container.server_to_server_key
         self.__cert_path = container.cert_path
 
+        print "CloudKit Configured"
+
     def __iso_date(self):
         return datetime.utcnow().replace(microsecond=0).isoformat() + 'Z'
 
@@ -146,7 +148,13 @@ class CloudKit:
         signature = base64.b64encode(signature)
         return signature
 
-    def __create_request(self, method, database, operation_subpath, payload):
+    def __create_request(
+        self,
+        method,
+        database,
+        operation_subpath,
+        payload=''
+    ):
         date = self.__iso_date()
         path = self.__cloud_kit_path(database, operation_subpath)
         url = self.__root_path + path
@@ -172,4 +180,4 @@ class CloudKit:
         print "Response: %s" % r.text
 
     def get_current_user(self):
-        self.__create_request('GET', 'public', 'users/current', '')
+        self.__create_request('GET', 'public', 'users/current')
