@@ -88,7 +88,7 @@ class CloudKit:
 
     __root_path = 'https://api.apple-cloudkit.com'
     __ck_version = '1'
-    __container = None
+    __container_identifier = None
     __environment = None
     __server_to_server_key = None
     __cert_path = None
@@ -102,7 +102,7 @@ class CloudKit:
         except Exception, e:
             raise e
 
-        self.__container = container.identifier
+        self.__container_identifier = container.container_identifier
         self.__environment = container.environment
         self.__server_to_server_key = container.server_to_server_key
         self.__cert_path = container.cert_path
@@ -127,7 +127,7 @@ class CloudKit:
         return os.path.join(
             '/database',
             self.__ck_version,
-            self.__container,
+            self.__container_identifier,
             self.__environment,
             database,
             operation_subpath

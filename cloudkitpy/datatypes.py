@@ -626,7 +626,7 @@ class CloudKitConfig:
 class ContainerConfig:
     """Dictionary used to create a configuration for a container."""
 
-    identifier = None
+    container_identifier = None
     environment = None
     apns_enviroment = None
     api_token = None
@@ -635,14 +635,14 @@ class ContainerConfig:
 
     def __init__(
         self,
-        identifier,
+        container_identifier,
         environment,
         apns_enviroment=None,
         api_token=None,
         server_to_server_key=None,
         cert_path=None
     ):
-        self.identifier = identifier
+        self.container_identifier = container_identifier
         self.environment = environment
         self.apns_enviroment = apns_enviroment
         self.api_token = api_token
@@ -652,7 +652,7 @@ class ContainerConfig:
     def update_with_json(self, json):
         """Populate the class from a JSON object."""
         try:
-            self.identifier = json['containerIdentifier']
+            self.container_identifier = json['containerIdentifier']
             self.environment = json['environment']
             self.apns_enviroment = json['apnsEnvironment']
             self.api_token = json['apiTokenAuth']
@@ -665,7 +665,7 @@ class ContainerConfig:
     def json(self):
         """Create a JSON object from the object's properties."""
         return {
-            'containerIdentifier': self.identifier,
+            'containerIdentifier': self.container_identifier,
             'environment': self.environment,
             'apnsEnvironment': self.apns_enviroment,
             'apiTokenAuth': self.api_token,
