@@ -15,7 +15,6 @@ import os
 from ecdsa import SigningKey
 import ecdsa
 import requests
-import ckdatatypes
 
 
 class CloudKit:
