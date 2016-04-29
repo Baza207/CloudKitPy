@@ -37,7 +37,12 @@ class Container:
         server_to_server_key=None,
         cert_path=None
     ):
-        pass
+        self.container_identifier = container_identifier
+        self.environment = environment
+        self.apns_environment = apns_environment
+        self.api_token = api_token
+        self.server_to_server_key = server_to_server_key
+        self.cert_path = cert_path
 
     # Discovering Users
 
