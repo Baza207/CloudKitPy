@@ -5,7 +5,7 @@ CloudKitPy - A python wrapper of CloudKit Web Services for server-to-server conn
 
 ## Under Development
 
-This project is stilll under initial developerment. This means it is incomplete in it's current state and should not yet be used in production projects.
+This project is still under initial development. This means it is incomplete in it's current state and should not yet be used in production projects.
 
 ## Contributions
 
