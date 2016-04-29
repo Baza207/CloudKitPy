@@ -631,20 +631,23 @@ class ContainerConfig:
     apns_enviroment = None
     api_token = None
     server_to_server_key = None
+    cert_path = None
 
     def __init__(
         self,
         identifier,
         environment,
-        apns_enviroment,
+        apns_enviroment=None,
         api_token=None,
-        server_to_server_key=None
+        server_to_server_key=None,
+        cert_path=None
     ):
         self.identifier = identifier
         self.environment = environment
         self.apns_enviroment = apns_enviroment
         self.api_token = api_token
         self.server_to_server_key = server_to_server_key
+        self.cert_path = cert_path
 
     def update_with_json(self, json):
         """Populate the class from a JSON object."""
