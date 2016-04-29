@@ -628,7 +628,7 @@ class ContainerConfig:
 
     container_identifier = None
     environment = None
-    apns_enviroment = None
+    apns_environment = None
     api_token = None
     server_to_server_key = None
     cert_path = None
@@ -637,14 +637,14 @@ class ContainerConfig:
         self,
         container_identifier,
         environment,
-        apns_enviroment=None,
+        apns_environment=None,
         api_token=None,
         server_to_server_key=None,
         cert_path=None
     ):
         self.container_identifier = container_identifier
         self.environment = environment
-        self.apns_enviroment = apns_enviroment
+        self.apns_environment = apns_environment
         self.api_token = api_token
         self.server_to_server_key = server_to_server_key
         self.cert_path = cert_path
@@ -654,7 +654,7 @@ class ContainerConfig:
         try:
             self.container_identifier = json['containerIdentifier']
             self.environment = json['environment']
-            self.apns_enviroment = json['apnsEnvironment']
+            self.apns_environment = json['apnsEnvironment']
             self.api_token = json['apiTokenAuth']
             self.server_to_server_key = json['serverToServerKeyAuth']
         except KeyError:
@@ -667,7 +667,7 @@ class ContainerConfig:
         return {
             'containerIdentifier': self.container_identifier,
             'environment': self.environment,
-            'apnsEnvironment': self.apns_enviroment,
+            'apnsEnvironment': self.apns_environment,
             'apiTokenAuth': self.api_token,
             'serverToServerKeyAuth': self.server_to_server_key
         }
