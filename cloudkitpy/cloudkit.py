@@ -11,6 +11,15 @@
 
 class CloudKit:
 
+    # Enviroments - Constants to use when configuring the
+    # environment of containers.
+    DEVELOPMENT_ENVIRONMENT = 'DEVELOPMENT_ENVIRONMENT'
+    """The container environment is not accessible by apps available
+     on the store."""
+    PRODUCTION_ENVIRONMENT = 'PRODUCTION_ENVIRONMENT'
+    """The container environment is accessible by both development
+     apps and apps available on the store."""
+
     # Comparator Values - The following values are allowed for
     # the comparator key in a filter dictionary.
     EQUALS = 'EQUALS'

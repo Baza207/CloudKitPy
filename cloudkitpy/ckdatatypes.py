@@ -245,7 +245,40 @@ class CKDataTypes:
         }
 
     @classmethod
-    def zone_id_dictionary(cls, zone_name):
+    def zone_id_dictionary(
+        cls,
+        zone_name
+    ):
         if zone_name is None or zone_name == '':
             zone_name = '_defaultZone'
         return {'zoneName': zone_name}
+
+    @classmethod
+    def cloudkit_config(
+        cls,
+        containers,
+        services=None
+    ):
+        """Dictionary used to configure the CloudKit environment."""
+        return {
+            'containers': containers,
+            'services': services
+        }
+
+    @classmethod
+    def container_config(
+        cls,
+        container_id,
+        environment,
+        apns_enviroment,
+        api_token_auth,
+        server_to_server_key_auth
+    ):
+        """Dictionary used to create a configuration for a container."""
+        return {
+            'containerIdentifier': container_id,
+            'environment': environment,
+            'apnsEnvironment': apns_enviroment,
+            'apiTokenAuth': api_token_auth,
+            'serverToServerKeyAuth': server_to_server_key_auth
+        }
