@@ -626,34 +626,34 @@ class CloudKitConfig:
 class ContainerConfig:
     """Dictionary used to create a configuration for a container."""
 
-    container_id = None
+    identifier = None
     environment = None
     apns_enviroment = None
-    api_token_auth = None
-    server_to_server_key_auth = None
+    api_token = None
+    server_to_server_key = None
 
     def __init__(
         self,
-        container_id,
+        identifier,
         environment,
         apns_enviroment,
-        api_token_auth=None,
-        server_to_server_key_auth=None
+        api_token=None,
+        server_to_server_key=None
     ):
-        self.container_id = container_id
+        self.identifier = identifier
         self.environment = environment
         self.apns_enviroment = apns_enviroment
-        self.api_token_auth = api_token_auth
-        self.server_to_server_key_auth = server_to_server_key_auth
+        self.api_token = api_token
+        self.server_to_server_key = server_to_server_key
 
     def update_with_json(self, json):
         """Populate the class from a JSON object."""
         try:
-            self.container_id = json['containerIdentifier']
+            self.identifier = json['containerIdentifier']
             self.environment = json['environment']
             self.apns_enviroment = json['apnsEnvironment']
-            self.api_token_auth = json['apiTokenAuth']
-            self.server_to_server_key_auth = json['serverToServerKeyAuth']
+            self.api_token = json['apiTokenAuth']
+            self.server_to_server_key = json['serverToServerKeyAuth']
         except KeyError:
             pass
         except Exception, e:
@@ -662,9 +662,9 @@ class ContainerConfig:
     def json(self):
         """Create a JSON object from the object's properties."""
         return {
-            'containerIdentifier': self.container_id,
+            'containerIdentifier': self.identifier,
             'environment': self.environment,
             'apnsEnvironment': self.apns_enviroment,
-            'apiTokenAuth': self.api_token_auth,
-            'serverToServerKeyAuth': self.server_to_server_key_auth
+            'apiTokenAuth': self.api_token,
+            'serverToServerKeyAuth': self.server_to_server_key
         }
