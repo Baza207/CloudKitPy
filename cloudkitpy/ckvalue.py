@@ -24,27 +24,25 @@ def CKValue(value):  # noqa
     # TODO: Work out how to correctly use `type` without
     # getting BAD_REQUEST errors.
 
-    # value_type = None
+    value_type = None
 
-    # if type(value) == str:
-    #     value_type = 'String'
-    # elif type(value) == float:
-    #     value_type = 'Double'
-    # elif type(value) == int:
-    #     value_type = 'Int'
+    if type(value) == str:
+        value_type = 'STRING'
+    elif type(value) == float:
+        value_type = 'DOUBLE'
+    elif type(value) == int:
+        value_type = 'INT'
     if type(value) == bool:
-        # value_type = 'Int(64)'
         value = int(value)
     elif type(value) == datetime.datetime:
-        # value_type = 'Date/Time'
         value = int(time.mktime(value.timetuple()))
-    # else:
-    #     return value_type
 
-    # return {
-    #     'value': value,
-    #     'type': value_type
-    # }
-    return {
-        'value': value
-    }
+    if value_type is None:
+        return {
+            'value': value
+        }
+    else:
+        return {
+            'value': value,
+            'type': value_type
+        }
