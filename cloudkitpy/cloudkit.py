@@ -8,6 +8,15 @@
 
 # !/usr/bin/env python
 
+from datetime import datetime
+import base64
+import hashlib
+import os
+from ecdsa import SigningKey
+import ecdsa
+import requests
+import ckdatatypes
+
 
 class CloudKit:
 
@@ -84,3 +93,84 @@ class CloudKit:
     __environment = None
     __server_to_server_key = None
     __cert_path = None
+
+    def __init__(self, config):
+        """Configure CloudKitPy."""
+        container = None
+        try:
+            # Current setup just uses the first passed in container
+            container = config.containers[0]
+        except Exception, e:
+            raise e
+
+        self.__container = container.identifier
+        self.__environment = container.environment
+        self.__server_to_server_key = container.server_to_server_key
+        self.__cert_path = container.cert_path
+
+    def __iso_date(self):
+        return datetime.utcnow().replace(microsecond=0).isoformat() + 'Z'
+
+    def __encode_string(self, string):
+        return base64.b64encode(string)
+
+    def __hash_string(self, string):
+        return hashlib.sha256(string).digest()
+
+    def __encode_and_hash_string(self, string):
+        hashed = self.__hash_string(string)
+        encoded = self.__encode_string(hashed)
+        return encoded
+
+    def __cloud_kit_path(self, database, operation_subpath):
+        return os.path.join(
+            '/database',
+            self.__ck_version,
+            self.__container,
+            self.__environment,
+            database,
+            operation_subpath
+        )
+
+    def __create_message(self, date, payload, path):
+        request_body = self.__encode_and_hash_string(payload)
+        return '%s:%s:%s' % (date, request_body, path)
+
+    def __sign_message(self, key_path, message):
+        key_data = open(key_path).read()
+        signing_key = SigningKey.from_pem(key_data)
+        signature = signing_key.sign(
+            message,
+            hashfunc=hashlib.sha256,
+            sigencode=ecdsa.util.sigencode_der
+        )
+        signature = base64.b64encode(signature)
+        return signature
+
+    def __create_request(self, method, database, operation_subpath, payload):
+        date = self.__iso_date()
+        path = self.__cloud_kit_path(database, operation_subpath)
+        url = self.__root_path + path
+
+        message = self.__create_message(date, payload, path)
+        signed_message = self.__sign_message(
+            self.__cert_path,
+            message
+        )
+
+        headers = {
+            'X-Apple-CloudKit-Request-KeyID': self.__server_to_server_key,
+            'X-Apple-CloudKit-Request-ISO8601Date': date,
+            'X-Apple-CloudKit-Request-SignatureV1': signed_message
+        }
+
+        if method == "POST":
+            r = requests.post(url, headers=headers, data=payload)
+        elif method == "GET":
+            r = requests.get(url, headers=headers, data=payload)
+        status_code = r.status_code
+        print "Code: %s" % status_code
+        print "Response: %s" % r.text
+
+    def get_current_user(self):
+        self.__create_request('GET', 'public', 'users/current', '')
