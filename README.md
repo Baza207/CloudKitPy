@@ -21,7 +21,7 @@ To install CloudKitPy follow the steps below:
 
 **Note:** In the future I am planning to submit this to allow installation via `pip`. However I want this framework to be a lot more fleshed out before I do that.
 
-## Basic Connection Setup
+## Basic Setup
 To setup a CloudKit instance to connect to CloudKit, use the following code:
 
 ```python
@@ -55,6 +55,7 @@ If you would like to contribute, please create an issue first before creating a 
 - [ ] **[IN PROGRESS]** Create wrappers for base parts of the CloudKit framework (data types, containers, databases and configuring)
 - [ ] Implement an error handling system and logging
 - [ ] Continue with further wrappers for remaining parts of CloudKit
+- [ ] Expand for API usage for non-server-to-server usage
 - [ ] Comprehensive Unit Test Coverage
 - [ ] Complete Documentation
 
