@@ -31,7 +31,7 @@ from cloudkitpy.cloudkit import CloudKit
 
 my_container = ContainerConfig(
     '<your container id>',
-    'development',
+    CloudKit.DEVELOPMENT_ENVIRONMENT,   # Or CloudKit.PRODUCTION_ENVIRONMENT for production
     server_to_server_key='<your server-to-server key id>',
     cert_path='<path to your private key>'
 )
