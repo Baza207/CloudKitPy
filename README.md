@@ -81,15 +81,15 @@ Below is listed the sections of CloudKit that are being created in CloudKitPy. T
     - [x] CloutKit Config
     - [x] Container Config
 - [ ] CKValue (mostly implemented, needs some expansion of `value_type` but the basic principle works)
-- [ ] CKError
+- [ ] **[IN PROGRESS]** CKError
 - [x] Container
     - [x] Configuration
     - [x] Private and Public database creation
     - [x] Discovering Users
-- [ ] **[IN PROGRESS]** Database
+- [x] Database
     - [x] Accessing Records
-    - [ ] Syncing Records
-    - [ ] Accessing Record Zones
+    - [x] Syncing Records
+    - [x] Accessing Record Zones
 - [ ] Records Batch Builder
 - [ ] Response
     - [ ] Record Zones Response
