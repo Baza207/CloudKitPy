@@ -81,11 +81,16 @@ class Request:
         container,
         database,
         operation_subpath,
-        payload=''
+        payload=None
     ):
         date = cls.__iso_date()
         path = cls.__cloud_kit_path(database, container, operation_subpath)
         url = cls.__root_path + path
+
+        if payload is None:
+            payload = ''
+        else:
+            payload = json.dumps(payload)
 
         message = cls.__create_message(date, payload, path)
         signed_message = cls.__sign_message(
@@ -104,7 +109,7 @@ class Request:
         elif method == "GET":
             r = requests.get(url, headers=headers, data=payload)
         status_code = r.status_code
-        json_object = json.loads(r.text)
+        json_dict = json.loads(r.text)
         print "Code: %s" % status_code
-        print "Response: %s" % json_object
-        return json_object
+        print "Response: %s" % json_dict
+        return json_dict
