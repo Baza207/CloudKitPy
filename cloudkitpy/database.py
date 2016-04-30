@@ -11,10 +11,16 @@
 
 class Database:
 
-    container_identifier = None
+    container = None
+    database_type = None
 
-    def __init__(self, container_identifier):
-        self.container_identifier = container_identifier
+    def __init__(
+        self,
+        container,
+        database_type
+    ):
+        self.container = container
+        self.database_type = database_type
 
     # Accessing Records
 

@@ -8,6 +8,7 @@
 
 # !/usr/bin/env python
 
+from database import Database
 from request import Request
 from datatypes import User
 
@@ -46,6 +47,10 @@ class Container:
         self.api_token = api_token
         self.server_to_server_key = server_to_server_key
         self.cert_path = cert_path
+
+        # Setup public and private cloud databases
+        self.public_cloud_database = Database(self, 'public')
+        self.private_cloud_database = Database(self, 'private')
 
     # Discovering Users
 
