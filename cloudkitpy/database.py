@@ -120,7 +120,7 @@ class Database:
         operations = []
         for record in records:
             operation = {
-                'operationType': operation_type
+                'operationType': operation_type,
                 'record': record.json()
             }
             operations.append(operation)
