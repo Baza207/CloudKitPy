@@ -1,5 +1,5 @@
 # CloudKitPy
-CloudKitPy - A python wrapper of CloudKit Web Services for server-to-server connections.
+CloudKitPy - A python wrapper around CloudKit Web Services for server-to-server connections.
 
 [![Build Status](https://travis-ci.org/Baza207/CloudKitPy.svg?branch=master)](https://travis-ci.org/Baza207/CloudKitPy)
 
@@ -52,8 +52,50 @@ print user.user_record_name
 If you would like to contribute, please create an issue first before creating a pull request, just incase I am already working on that part of the project.
 
 ## Roadmap
+- [ ] Create wrappers for base parts of the CloudKit framework (data types, containers, databases and configuring) **[IN PROGRESS]**
+- [ ] Implement an error handling system and logging
+- [ ] Continue with further wrappers for remaining parts of CloudKit
+- [ ] Comprehensive Unit Test Coverage
+- [ ] Complete Documentation
 
-A roadmap will be up shortly defining what operations are planned and the priority.
+Below is listed the sections of CloudKit that are being created in CloudKitPy. This is a continuous list and will be added to and updated as development continues.
+
+- [x] CloudKit
+    - [x] Configuration
+    - [x] Container Management
+    - [x] Constants
+- [x] Data Types
+    - [x] Asset
+    - [x] Filter
+    - [x] Location
+    - [x] Notification Info
+    - [x] Query
+    - [x] Record
+    - [x] Reference
+    - [x] Sort Descriptor
+    - [x] Subscription
+    - [x] User Info
+    - [x] Zone
+    - [x] Zone ID
+    - [x] CloutKit Config
+    - [x] Container Config
+- [ ] CKValue (mostly implemented, needs some expansion of `value_type` but the basic principle works)
+- [ ] CKError
+- [x] Container
+    - [x] Configuration
+    - [x] Private and Public database creation
+    - [x] Discovering Users
+- [ ] Database **[IN PROGRESS]**
+    - [x] Accessing Records
+    - [ ] Syncing Records
+    - [ ] Accessing Record Zones
+- [ ] Records Batch Builder
+- [ ] Response
+    - [ ] Record Zones Response
+        - [ ] Changed Records Response
+        - [ ] Query Response
+    - [ ] Subscriptions Response
+    - [ ] User Info Response
 
 ## License
 
