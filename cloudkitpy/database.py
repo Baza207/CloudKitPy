@@ -27,10 +27,47 @@ class Database:
 
     # Accessing Records
 
-    def save_records(self, records, options=None):
+    def save_records(self, records, auto_fetch=False, options=None):
         """Save records to the database."""
         # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/ModifyRecords/ModifyRecords.html#//apple_ref/doc/uid/TP40015240-CH2-SW9
-        pass
+        operations = []
+        for record in records:
+            operation_type = None
+            if record.record_change_tag is not None:
+                operation_type = 'update'
+            elif record.record_type is not None:
+                operation_type = 'create'
+            elif auto_fetch is True:
+                # Fetch, and if record is returned,
+                # append the change tap and update
+                pass
+
+            if operation_type is not None:
+                operation = {
+                    'operationType': operation_type,
+                    'record': record.json()
+                }
+                operations.append(operation)
+
+        payload = {
+            'operations': operations,
+        }
+        if options is not None:
+            payload.update(options)
+
+        json = Request.perform_request(
+            'POST',
+            self.container,
+            self.database_type,
+            'records/modify',
+            payload
+        )
+
+        objects = []
+        objects_json = json['records']
+        for object_json in objects_json:
+            objects.append(Record(object_json))
+        return objects
 
     def fetch_records(self, records, options=None):
         """Fetch one or more records."""
