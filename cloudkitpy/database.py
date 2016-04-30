@@ -66,6 +66,7 @@ class Database:
         for record in records:
             operation = {
                 'operationType': operation_type
+                'record': record.json()
             }
             operations.append(operation)
 
