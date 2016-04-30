@@ -96,7 +96,10 @@ class Location:
         if json is not None:
             self.latitude = Request.parse(json, 'latitude')
             self.longitude = Request.parse(json, 'longitude')
-            self.horizontal_accuracy = Request.parse(json, 'horizontalAccuracy')
+            self.horizontal_accuracy = Request.parse(
+                json,
+                'horizontalAccuracy'
+            )
             self.vertical_accuracy = Request.parse(json, 'verticalAccuracy')
             self.altitude = Request.parse(json, 'altitude')
             self.speed = Request.parse(json, 'speed')
@@ -135,8 +138,14 @@ class NotificationInfo:
     def __init__(self, json=None):
         if json is not None:
             self.alert_body = Request.parse(json, 'alertBody')
-            self.alert_localization_key = Request.parse(json, 'alertLocalizationKey')
-            self.alert_localization_args = Request.parse(json, 'alertLocalizationArgs')
+            self.alert_localization_key = Request.parse(
+                json,
+                'alertLocalizationKey'
+            )
+            self.alert_localization_args = Request.parse(
+                json,
+                'alertLocalizationArgs'
+            )
             self.alert_action_localization_key = Request.parse(
                 json,
                 'alertActionLocalizationKey'
