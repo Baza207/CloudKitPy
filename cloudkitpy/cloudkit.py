@@ -60,10 +60,10 @@ class CloudKit:
 
     # Enviroments - Constants to use when configuring the
     # environment of containers.
-    DEVELOPMENT_ENVIRONMENT = 'DEVELOPMENT_ENVIRONMENT'
+    DEVELOPMENT_ENVIRONMENT = 'DEVELOPMENT'
     """The container environment is not accessible by apps available
      on the store."""
-    PRODUCTION_ENVIRONMENT = 'PRODUCTION_ENVIRONMENT'
+    PRODUCTION_ENVIRONMENT = 'PRODUCTION'
     """The container environment is accessible by both development
      apps and apps available on the store."""
 
