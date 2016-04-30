@@ -1,7 +1,3 @@
-# Remove tests file while in development
-# Needs to be re-added once propper tests are added
-tests
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
