@@ -171,9 +171,36 @@ class Database:
 
     # Syncing Records
 
-    def fetch_changed_records(self, zone_id=None):
+    def fetch_changed_records(self, zone_id, options=None):
         """Fetch changed records in a given custom zone."""
-        pass
+        # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/ChangeRecords/ChangeRecords.html#//apple_ref/doc/uid/TP40015240-CH7-SW1
+        if self.database_type == 'private':
+            return None
+
+        payload = {
+            'zoneID': zone_id,
+        }
+        if options is not None:
+            payload.update(options)
+
+        json = Request.perform_request(
+            'POST',
+            self.container,
+            'private',
+            'records/changes',
+            payload
+        )
+
+        objects = []
+        objects_json = json['records']
+        for object_json in objects_json:
+            objects.append(Record(object_json))
+
+        more_coming = Request.parse(json, 'moreComing')
+        reverse = Request.parse(json, 'reverse')
+        sync_token = Request.parse(json, 'syncToken')
+
+        return (objects, more_coming, reverse, sync_token)
 
     # Accessing Record Zones
 
