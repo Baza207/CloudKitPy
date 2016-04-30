@@ -52,7 +52,7 @@ print user.user_record_name
 If you would like to contribute, please create an issue first before creating a pull request, just incase I am already working on that part of the project.
 
 ## Roadmap
-- [ ] Create wrappers for base parts of the CloudKit framework (data types, containers, databases and configuring) **[IN PROGRESS]**
+- [ ] **[IN PROGRESS]** Create wrappers for base parts of the CloudKit framework (data types, containers, databases and configuring)
 - [ ] Implement an error handling system and logging
 - [ ] Continue with further wrappers for remaining parts of CloudKit
 - [ ] Comprehensive Unit Test Coverage
@@ -85,7 +85,7 @@ Below is listed the sections of CloudKit that are being created in CloudKitPy. T
     - [x] Configuration
     - [x] Private and Public database creation
     - [x] Discovering Users
-- [ ] Database **[IN PROGRESS]**
+- [ ] **[IN PROGRESS]** Database
     - [x] Accessing Records
     - [ ] Syncing Records
     - [ ] Accessing Record Zones
