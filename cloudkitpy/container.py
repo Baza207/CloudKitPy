@@ -86,7 +86,7 @@ class Container:
         )
 
         objects = []
-        objects_json = Request.parse(json, 'records')
+        objects_json = Request.parse(json, 'users')
         if objects_json is not None:
             for object_json in objects_json:
                 objects.append(User(object_json))
@@ -110,7 +110,7 @@ class Container:
         )
 
         objects = []
-        objects_json = Request.parse(json, 'records')
+        objects_json = Request.parse(json, 'users')
         if objects_json is not None:
             for object_json in objects_json:
                 objects.append(User(object_json))
