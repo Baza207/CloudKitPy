@@ -15,6 +15,7 @@ import os
 from ecdsa import SigningKey
 import ecdsa
 import requests
+import json
 
 
 class Request:
@@ -103,5 +104,7 @@ class Request:
         elif method == "GET":
             r = requests.get(url, headers=headers, data=payload)
         status_code = r.status_code
+        json_object = json.loads(r.text)
         print "Code: %s" % status_code
-        print "Response: %s" % r.text
+        print "Response: %s" % json_object
+        return json_object
