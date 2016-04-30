@@ -51,6 +51,7 @@ class Container:
 
     def fetch_user_info(self):
         """Fetch information about the current user asynchronously."""
+        # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/GetCurrentUser/GetCurrentUser.html#//apple_ref/doc/uid/TP40015240-CH12-SW1
         json = Request.perform_request(
             'GET',
             self,
@@ -64,6 +65,7 @@ class Container:
 
         Based on the user's email address.
         """
+        # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/LookupUsersbyEmail/LookupUsersbyEmail.html#//apple_ref/doc/uid/TP40015240-CH14-SW1
         json = Request.perform_request(
             'POST',
             self,
@@ -83,6 +85,7 @@ class Container:
 
     def discover_user_info_with_user_record_name(self, record_name):
         """Fetch information about a single user using the record name."""
+        # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/LookupUsersbyID/LookupUsersbyID.html#//apple_ref/doc/uid/TP40015240-CH15-SW1
         json = Request.perform_request(
             'POST',
             self,
