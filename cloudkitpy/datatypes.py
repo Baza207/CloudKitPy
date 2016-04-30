@@ -308,7 +308,7 @@ class Subscription:
         }
 
 
-class User:
+class UserInfo:
     """A user dictionary describes a user."""
 
     user_record_name = None

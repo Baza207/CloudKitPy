@@ -10,7 +10,7 @@
 
 from database import Database
 from request import Request
-from datatypes import User
+from datatypes import UserInfo
 
 
 class Container:
@@ -63,7 +63,7 @@ class Container:
             'public',
             'users/current'
         )
-        return User(json)
+        return UserInfo(json)
 
     def discover_user_info_with_email_address(self, email_address):
         """Fetch information about a single user.
@@ -89,7 +89,7 @@ class Container:
         objects_json = Request.parse(json, 'users')
         if objects_json is not None:
             for object_json in objects_json:
-                objects.append(User(object_json))
+                objects.append(UserInfo(object_json))
         return objects
 
     def discover_user_info_with_user_record_name(self, record_name):
@@ -113,5 +113,5 @@ class Container:
         objects_json = Request.parse(json, 'users')
         if objects_json is not None:
             for object_json in objects_json:
-                objects.append(User(object_json))
+                objects.append(UserInfo(object_json))
         return objects
