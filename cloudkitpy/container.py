@@ -8,6 +8,9 @@
 
 # !/usr/bin/env python
 
+from request import Request
+from datatypes import User
+
 
 class Container:
 
@@ -48,15 +51,51 @@ class Container:
 
     def fetch_user_info(self):
         """Fetch information about the current user asynchronously."""
-        pass
+        json = Request.perform_request(
+            'GET',
+            self,
+            'public',
+            'users/current'
+        )
+        return User(json)
 
     def discover_user_info_with_email_address(self, email_address):
         """Fetch information about a single user.
 
         Based on the user's email address.
         """
-        pass
+        json = Request.perform_request(
+            'POST',
+            self,
+            'public',
+            'users/lookup/email',
+            {
+                'users': [
+                    {'emailAddress': email_address}
+                ]
+            }
+        )
+        users = []
+        users_json = json['users']
+        for user_json in users_json:
+            users.append(User(user_json))
+        return users
 
     def discover_user_info_with_user_record_name(self, record_name):
         """Fetch information about a single user using the record name."""
-        pass
+        json = Request.perform_request(
+            'POST',
+            self,
+            'public',
+            'users/lookup/id',
+            {
+                'users': [
+                    {'userRecordName': record_name}
+                ]
+            }
+        )
+        users = []
+        users_json = json['users']
+        for user_json in users_json:
+            users.append(User(user_json))
+        return users
