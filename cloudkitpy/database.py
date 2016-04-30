@@ -83,7 +83,7 @@ class Database:
         )
 
         objects = []
-        objects_json = json['records']
+        objects_json = Request.parse(json, 'records')
         for object_json in objects_json:
             objects.append(Record(object_json))
         return objects
@@ -106,7 +106,7 @@ class Database:
         )
 
         objects = []
-        objects_json = json['records']
+        objects_json = Request.parse(json, 'records')
         for object_json in objects_json:
             objects.append(Record(object_json))
         return objects
@@ -141,7 +141,7 @@ class Database:
         )
 
         objects = []
-        objects_json = json['records']
+        objects_json = Request.parse(json, 'records')
         for object_json in objects_json:
             objects.append(Record(object_json))
         return objects
@@ -164,7 +164,7 @@ class Database:
         )
 
         objects = []
-        objects_json = json['records']
+        objects_json = Request.parse(json, 'records')
         for object_json in objects_json:
             objects.append(Record(object_json))
         continuation_marker = Request.parse(json, 'continuationMarker')
@@ -193,7 +193,7 @@ class Database:
         )
 
         objects = []
-        objects_json = json['records']
+        objects_json = Request.parse(json, 'records')
         for object_json in objects_json:
             objects.append(Record(object_json))
 
@@ -229,7 +229,7 @@ class Database:
         )
 
         objects = []
-        objects_json = json['zones']
+        objects_json = Request.parse(json, 'zones')
         for object_json in objects_json:
             objects.append(Zone(object_json))
         return objects
