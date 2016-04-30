@@ -27,13 +27,21 @@ class Database:
 
     # Accessing Records
 
-    def save_records(self, records, auto_fetch=False, options=None):
+    def save_records(
+        self,
+        records,
+        auto_fetch=False,
+        force=False,
+        options=None
+    ):
         """Save records to the database."""
         # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/ModifyRecords/ModifyRecords.html#//apple_ref/doc/uid/TP40015240-CH2-SW9
         operations = []
         for record in records:
             operation_type = None
-            if record.record_change_tag is not None:
+            if force is True:
+                operation_type = 'forceUpdate'
+            elif record.record_change_tag is not None:
                 operation_type = 'update'
             elif record.record_type is not None:
                 operation_type = 'create'
