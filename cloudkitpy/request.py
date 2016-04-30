@@ -75,7 +75,7 @@ class Request:
         return signature
 
     @classmethod
-    def create_request(
+    def perform_request(
         cls,
         method,
         container,
