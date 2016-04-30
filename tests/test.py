@@ -11,7 +11,10 @@
 import unittest
 from datetime import datetime
 import time
+from cloudkitpy.cloudkit import CloudKit
 from cloudkitpy.value import CKValue
+from cloudkitpy.datatypes import CloudKitConfig
+from cloudkitpy.datatypes import ContainerConfig
 
 
 class CKValueTests(unittest.TestCase):
@@ -76,6 +79,87 @@ class CKValueTests(unittest.TestCase):
 
     def test_reference_value(self):
         pass
+
+
+class DataTypeTests(unittest.TestCase):
+
+    def test_asset(self):
+        pass
+
+    def test_filter(self):
+        pass
+
+    def test_location(self):
+        pass
+
+    def test_notification_info(self):
+        pass
+
+    def test_query(self):
+        pass
+
+    def test_record(self):
+        pass
+
+    def test_reference(self):
+        pass
+
+    def test_sort_descriptor(self):
+        pass
+
+    def test_subscription(self):
+        pass
+
+    def test_user_info(self):
+        pass
+
+    def test_zone(self):
+        pass
+
+    def test_zone_id(self):
+        pass
+
+    def test_cloudkit_config(self):
+        identifier = 'iCloud.com.company.app'
+        environment = CloudKit.DEVELOPMENT_ENVIRONMENT
+        server_to_server_key_auth = '1234567890qwerty'
+        cert_path = 'eckey.pem'
+        container = ContainerConfig(
+            identifier,
+            environment,
+            server_to_server_key=server_to_server_key_auth,
+            cert_path=cert_path
+        )
+        comp_config = {
+            'containers': [
+                container
+            ],
+            'services': None
+        }
+        gen_config = CloudKitConfig([container]).json()
+        self.failUnless(comp_config == gen_config)
+
+    def test_container_config(self):
+        identifier = 'iCloud.com.company.app'
+        environment = CloudKit.DEVELOPMENT_ENVIRONMENT
+        apns_environment = None
+        api_token_auth = None
+        server_to_server_key_auth = '1234567890qwerty'
+        cert_path = 'eckey.pem'
+        comp_config = {
+            'containerIdentifier': identifier,
+            'environment': environment,
+            'apnsEnvironment': apns_environment,
+            'apiTokenAuth': api_token_auth,
+            'serverToServerKeyAuth': server_to_server_key_auth
+        }
+        gen_config = ContainerConfig(
+            identifier,
+            environment,
+            server_to_server_key=server_to_server_key_auth,
+            cert_path=cert_path
+        ).json()
+        self.failUnless(comp_config == gen_config)
 
 
 def main():
