@@ -66,39 +66,47 @@ class Container:
         Based on the user's email address.
         """
         # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/LookupUsersbyEmail/LookupUsersbyEmail.html#//apple_ref/doc/uid/TP40015240-CH14-SW1
+        payload = {
+            'users': [
+                {'emailAddress': email_address}
+            ]
+        }
+
         json = Request.perform_request(
             'POST',
             self,
             'public',
             'users/lookup/email',
-            {
-                'users': [
-                    {'emailAddress': email_address}
-                ]
-            }
+            payload
         )
-        users = []
-        users_json = json['users']
-        for user_json in users_json:
-            users.append(User(user_json))
-        return users
+
+        objects = []
+        objects_json = Request.parse(json, 'records')
+        if objects_json is not None:
+            for object_json in objects_json:
+                objects.append(User(object_json))
+        return objects
 
     def discover_user_info_with_user_record_name(self, record_name):
         """Fetch information about a single user using the record name."""
         # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/LookupUsersbyID/LookupUsersbyID.html#//apple_ref/doc/uid/TP40015240-CH15-SW1
+        payload = {
+            'users': [
+                {'userRecordName': record_name}
+            ]
+        }
+
         json = Request.perform_request(
             'POST',
             self,
             'public',
             'users/lookup/id',
-            {
-                'users': [
-                    {'userRecordName': record_name}
-                ]
-            }
+            payload
         )
-        users = []
-        users_json = json['users']
-        for user_json in users_json:
-            users.append(User(user_json))
-        return users
+
+        objects = []
+        objects_json = Request.parse(json, 'records')
+        if objects_json is not None:
+            for object_json in objects_json:
+                objects.append(User(object_json))
+        return objects
