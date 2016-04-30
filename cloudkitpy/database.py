@@ -9,6 +9,7 @@
 # !/usr/bin/env python
 
 from datatypes import Record
+from datatypes import Zone
 from request import Request
 
 
@@ -210,7 +211,28 @@ class Database:
 
     def fetch_record_zones(self, zone_ids):
         """Fetch one or more zones."""
-        pass
+        # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/GettingZonesbyIdentifier/GettingZonesbyIdentifier.html#//apple_ref/doc/uid/TP40015240-CH22-SW1
+        zones = []
+        for zone_id in zone_ids:
+            zones.append(zone_id.json())
+
+        payload = {
+            'zones': zones,
+        }
+
+        json = Request.perform_request(
+            'POST',
+            self.container,
+            self.database_type,
+            'zones/lookup',
+            payload
+        )
+
+        objects = []
+        objects_json = json['zones']
+        for object_json in objects_json:
+            objects.append(Zone(object_json))
+        return objects
 
     def fetch_all_record_zones(self):
         """Fetch all zones in the database."""
