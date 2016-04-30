@@ -8,6 +8,9 @@
 
 # !/usr/bin/env python
 
+from datatypes import Record
+from request import Request
+
 
 class Database:
 
@@ -24,28 +27,91 @@ class Database:
 
     # Accessing Records
 
-    def save_records(self, records, zone_id=None):
+    def save_records(self, records, options=None):
         """Save records to the database."""
+        # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/ModifyRecords/ModifyRecords.html#//apple_ref/doc/uid/TP40015240-CH2-SW9
         pass
 
-    def fetch_records(self, records, zone_id=None):
+    def fetch_records(self, records, options=None):
         """Fetch one or more records."""
-        pass
+        # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/LookupRecords/LookupRecords.html#//apple_ref/doc/uid/TP40015240-CH6-SW2
+        payload = {
+            'records': records,
+        }
+        if options is not None:
+            payload.update(options)
 
-    def delete_records(self, records, zone_id=None):
+        json = Request.perform_request(
+            'POST',
+            self.container,
+            self.database_type,
+            'records/lookup',
+            payload
+        )
+
+        objects = []
+        objects_json = json['records']
+        for object_json in objects_json:
+            objects.append(Record(object_json))
+        return objects
+
+    def delete_records(self, records, force=False, options=None):
         """Delete one or more records."""
-        pass
+        # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/ModifyRecords/ModifyRecords.html#//apple_ref/doc/uid/TP40015240-CH2-SW9
+        operation_type = 'delete'
+        if force is True:
+            operation_type = 'forceDelete'
 
-    def perform_query(self, query, zone_id=None):
+        operations = []
+        for record in records:
+            operation = {
+                'operationType': operation_type
+            }
+            operations.append(operation)
+
+        payload = {
+            'operations': operations,
+        }
+        if options is not None:
+            payload.update(options)
+
+        json = Request.perform_request(
+            'POST',
+            self.container,
+            self.database_type,
+            'records/modify',
+            payload
+        )
+
+        objects = []
+        objects_json = json['records']
+        for object_json in objects_json:
+            objects.append(Record(object_json))
+        return objects
+
+    def perform_query(self, query, options=None):
         """Fetch records using a query."""
-        pass
+        # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/QueryingRecords/QueryingRecords.html#//apple_ref/doc/uid/TP40015240-CH5-SW4
+        payload = {
+            'query': query,
+        }
+        if options is not None:
+            payload.update(options)
 
-    def new_records_batch(self, zone_id=None):
-        """Create records batch builder.
+        json = Request.perform_request(
+            'POST',
+            self.container,
+            self.database_type,
+            'records/query',
+            payload
+        )
 
-        An object for modifying multiple records.
-        """
-        pass
+        objects = []
+        objects_json = json['records']
+        for object_json in objects_json:
+            objects.append(Record(object_json))
+        continuation_marker = Request.parse(json, 'continuationMarker')
+        return (objects, continuation_marker)
 
     # Syncing Records
 
