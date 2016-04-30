@@ -37,10 +37,15 @@ my_container = ContainerConfig(
 )
 cloudkit_config = CloudKitConfig([my_container])
 ck = CloudKit(cloudkit_config)
-ck.get_current_user()
+container = ck.get_default_container()
 ```
 
-**Note:** `get_current_user()` is currently just a test function to make sure that the request is being created correctly. This will change in the future when the framework progresses. Therefor this might have been moved or changed before the documentation is updated.
+Now to get the current user and print it's record name, all you have to do is:
+
+```python
+user = container.fetch_user_info()
+print user.user_record_name
+```
 
 ## Contributions
 
