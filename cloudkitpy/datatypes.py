@@ -12,6 +12,18 @@
 # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/Types/Types.html
 
 
+def parse(json, key):
+    value = None
+    try:
+        value = json[key]
+    except KeyError:
+        pass
+    except Exception, e:
+        raise e
+
+    return value
+
+
 class Asset:
     """An asset dictionary.
 
@@ -27,17 +39,12 @@ class Asset:
 
     def __init__(self, json=None):
         if json is not None:
-            try:
-                self.file_checksum = json['fileChecksum']
-                self.size = json['size']
-                self.reference_checksum = json['referenceChecksum']
-                self.wrapping_key = json['wrappingKey']
-                self.receipt = json['receipt']
-                self.download_url = json['downloadURL']
-            except KeyError:
-                pass
-            except Exception, e:
-                raise e
+            self.file_checksum = parse(json, 'fileChecksum')
+            self.size = parse(json, 'size')
+            self.reference_checksum = parse(json, 'referenceChecksum')
+            self.wrapping_key = parse(json, 'wrappingKey')
+            self.receipt = parse(json, 'receipt')
+            self.download_url = parse(json, 'downloadURL')
 
     def json(self):
         """Create a JSON object from the object's properties."""
@@ -65,15 +72,10 @@ class Filter:
 
     def __init__(self, json=None):
         if json is not None:
-            try:
-                self.comparator = json['comparator']
-                self.field_name = json['fieldName']
-                self.field_value = json['fieldValue']
-                self.distance = json['distance']
-            except KeyError:
-                pass
-            except Exception, e:
-                raise e
+            self.comparator = parse(json, 'comparator')
+            self.field_name = parse(json, 'fieldName')
+            self.field_value = parse(json, 'fieldValue')
+            self.distance = parse(json, 'distance')
 
     def json(self):
         """Create a JSON object from the object's properties."""
@@ -102,19 +104,14 @@ class Location:
 
     def __init__(self, json=None):
         if json is not None:
-            try:
-                self.latitude = json['latitude']
-                self.longitude = json['longitude']
-                self.horizontal_accuracy = json['horizontalAccuracy']
-                self.vertical_accuracy = json['verticalAccuracy']
-                self.altitude = json['altitude']
-                self.speed = json['speed']
-                self.course = json['course']
-                self.timestamp = json['timestamp']
-            except KeyError:
-                pass
-            except Exception, e:
-                raise e
+            self.latitude = parse(json, 'latitude')
+            self.longitude = parse(json, 'longitude')
+            self.horizontal_accuracy = parse(json, 'horizontalAccuracy')
+            self.vertical_accuracy = parse(json, 'verticalAccuracy')
+            self.altitude = parse(json, 'altitude')
+            self.speed = parse(json, 'speed')
+            self.course = parse(json, 'course')
+            self.timestamp = parse(json, 'timestamp')
 
     def json(self):
         """Create a JSON object from the object's properties."""
@@ -147,23 +144,20 @@ class NotificationInfo:
 
     def __init__(self, json=None):
         if json is not None:
-            try:
-                self.alert_body = json['alertBody']
-                self.alert_localization_key = json['alertLocalizationKey']
-                self.alert_localization_args = json['alertLocalizationArgs']
-                self.alert_action_localization_key = json[
-                    'alertActionLocalizationKey'
-                ]
-                self.alert_launch_image = json['alertLaunchImage']
-                self.sound_name = json['soundName']
-                self.should_badge = json['shouldBadge']
-                self.should_send_content_available = json[
-                    'shouldSendContentAvailable'
-                ]
-            except KeyError:
-                pass
-            except Exception, e:
-                raise e
+            self.alert_body = parse(json, 'alertBody')
+            self.alert_localization_key = parse(json, 'alertLocalizationKey')
+            self.alert_localization_args = parse(json, 'alertLocalizationArgs')
+            self.alert_action_localization_key = parse(
+                json,
+                'alertActionLocalizationKey'
+            )
+            self.alert_launch_image = parse(json, 'alertLaunchImage')
+            self.sound_name = parse(json, 'soundName')
+            self.should_badge = parse(json, 'shouldBadge')
+            self.should_send_content_available = parse(
+                json,
+                'shouldSendContentAvailable'
+            )
 
     def json(self):
         """Create a JSON object from the object's properties."""
@@ -192,14 +186,9 @@ class Query:
 
     def __init__(self, json=None):
         if json is not None:
-            try:
-                self.record_type = json['recordType']
-                self.filter_by = json['filterBy']
-                self.sort_by = json['sortBy']
-            except KeyError:
-                pass
-            except Exception, e:
-                raise e
+            self.record_type = parse(json, 'recordType')
+            self.filter_by = parse(json, 'filterBy')
+            self.sort_by = parse(json, 'sortBy')
 
     def json(self):
         """Create a JSON object from the object's properties."""
@@ -223,18 +212,13 @@ class Record:
 
     def __init__(self, json=None):
         if json is not None:
-            try:
-                self.record_name = json['recordName']
-                self.record_type = json['recordType']
-                self.record_change_tag = json['recordChangeTag']
-                self.fields = json['fields']
-                self.created = json['created']
-                self.modified = json['modified']
-                self.deleted = json['deleted']
-            except KeyError:
-                pass
-            except Exception, e:
-                raise e
+            self.record_name = parse(json, 'recordName')
+            self.record_type = parse(json, 'recordType')
+            self.record_change_tag = parse(json, 'recordChangeTag')
+            self.fields = parse(json, 'fields')
+            self.created = parse(json, 'created')
+            self.modified = parse(json, 'modified')
+            self.deleted = parse(json, 'deleted')
 
     def json(self):
         """Create a JSON object from the object's properties."""
@@ -258,14 +242,9 @@ class Reference:
 
     def __init__(self, json=None):
         if json is not None:
-            try:
-                self.record_name = json['recordName']
-                self.zone_id = json['zoneID']
-                self.action = json['action']
-            except KeyError:
-                pass
-            except Exception, e:
-                raise e
+            self.record_name = parse(json, 'recordName')
+            self.zone_id = parse(json, 'zoneID')
+            self.action = parse(json, 'action')
 
     def json(self):
         """Create a JSON object from the object's properties."""
@@ -286,14 +265,9 @@ class SortDescriptor:
 
     def __init__(self, json=None):
         if json is not None:
-            try:
-                self.field_name = json['fieldName']
-                self.ascending = json['ascending']
-                self.relative_location = json['relativeLocation']
-            except KeyError:
-                pass
-            except Exception, e:
-                raise e
+            self.field_name = parse(json, 'fieldName')
+            self.ascending = parse(json, 'ascending')
+            self.relative_location = parse(json, 'relativeLocation')
 
     def json(self):
         """Create a JSON object from the object's properties."""
@@ -321,19 +295,14 @@ class Subscription:
 
     def __init__(self, json=None):
         if json is not None:
-            try:
-                self.zone_id = json['zoneID']
-                self.subscription_id = json['subscriptionID']
-                self.subscription_type = json['subscriptionType']
-                self.query = json['query']
-                self.fires_on = json['firesOn']
-                self.fires_once = json['firesOnce']
-                self.notification_info = json['notificationInfo']
-                self.zone_wide = json['zoneWide']
-            except KeyError:
-                pass
-            except Exception, e:
-                raise e
+            self.zone_id = parse(json, 'zoneID')
+            self.subscription_id = parse(json, 'subscriptionID')
+            self.subscription_type = parse(json, 'subscriptionType')
+            self.query = parse(json, 'query')
+            self.fires_on = parse(json, 'firesOn')
+            self.fires_once = parse(json, 'firesOnce')
+            self.notification_info = parse(json, 'notificationInfo')
+            self.zone_wide = parse(json, 'zoneWide')
 
     def json(self):
         """Create a JSON object from the object's properties."""
@@ -360,16 +329,11 @@ class User:
 
     def __init__(self, json=None):
         if json is not None:
-            try:
-                self.user_record_name = json['userRecordName']
-                self.first_name = json['firstName']
-                self.last_name = json['lastName']
-                self.email_address = json['emailAddress']
-                self.is_discoverable = json['isDiscoverable']
-            except KeyError:
-                pass
-            except Exception, e:
-                raise e
+            self.user_record_name = parse(json, 'userRecordName')
+            self.first_name = parse(json, 'firstName')
+            self.last_name = parse(json, 'lastName')
+            self.email_address = parse(json, 'emailAddress')
+            self.is_discoverable = parse(json, 'isDiscoverable')
 
     def json(self):
         """Create a JSON object from the object's properties."""
@@ -391,14 +355,9 @@ class Zone:
 
     def __init__(self, json=None):
         if json is not None:
-            try:
-                self.zone_id = json['zoneID']
-                self.sync_token = json['syncToken']
-                self.atomic = json['atomic']
-            except KeyError:
-                pass
-            except Exception, e:
-                raise e
+            self.zone_id = parse(json, 'zoneID')
+            self.sync_token = parse(json, 'syncToken')
+            self.atomic = parse(json, 'atomic')
 
     def json(self):
         """Create a JSON object from the object's properties."""
@@ -416,12 +375,7 @@ class ZoneID:
 
     def __init__(self, json=None):
         if json is not None:
-            try:
-                self.zone_name = json['zoneName']
-            except KeyError:
-                pass
-            except Exception, e:
-                raise e
+            self.zone_name = parse(json, 'zoneName')
 
     def json(self):
         """Create a JSON object from the object's properties."""
