@@ -40,7 +40,17 @@ class Database:
             elif auto_fetch is True:
                 # Fetch, and if record is returned,
                 # append the change tap and update
-                pass
+                fetch_record_dict = {
+                    'recordName': record.record_name,
+                    'desiredKeys': None
+                }
+                fetched_record = self.fetch_records([fetch_record_dict])
+                if fetched_record is not None:
+                    operation_type = 'update'
+                    record.record_change_tag = fetched_record.record_change_tag
+                else:
+                    print """Record doesn't already exist and is
+                     missing a record type!"""
 
             if operation_type is not None:
                 operation = {
