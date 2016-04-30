@@ -13,6 +13,8 @@ from datetime import datetime
 import time
 from cloudkitpy.cloudkit import CloudKit
 from cloudkitpy.value import CKValue
+from cloudkitpy.datatypes import Zone
+from cloudkitpy.datatypes import ZoneID
 from cloudkitpy.datatypes import CloudKitConfig
 from cloudkitpy.datatypes import ContainerConfig
 
@@ -114,10 +116,28 @@ class DataTypeTests(unittest.TestCase):
         pass
 
     def test_zone(self):
-        pass
+        zone_name = 'Zone Name'
+        zone_id = ZoneID(None)
+        zone_id.zone_name = zone_name
+        sync_token = None
+        atomic = False
+        json = {
+            'zoneID': zone_id.json(),
+            'syncToken': sync_token,
+            'atomic': atomic
+        }
+        gen_zone = Zone(json)
+        self.failUnless(zone_id.json() == gen_zone.zone_id)
+        self.failUnless(sync_token == gen_zone.sync_token)
+        self.failUnless(atomic == gen_zone.atomic)
 
     def test_zone_id(self):
-        pass
+        comp_zone_name = 'Zone Name'
+        json = {
+            'zoneName': comp_zone_name
+        }
+        gen_zone = ZoneID(json)
+        self.failUnless(comp_zone_name == gen_zone.zone_name)
 
     def test_cloudkit_config(self):
         identifier = 'iCloud.com.company.app'

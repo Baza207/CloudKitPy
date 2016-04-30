@@ -350,7 +350,7 @@ class Zone:
 
     zone_id = None
     sync_token = None
-    atomic = None
+    atomic = False
 
     def __init__(self, json=None):
         if json is not None:
