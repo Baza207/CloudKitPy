@@ -209,15 +209,15 @@ class Database:
         """Create one or more zones in the database."""
         pass
 
-    def fetch_record_zones(self, zone_ids):
+    def fetch_record_zones(self, zones):
         """Fetch one or more zones."""
         # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/GettingZonesbyIdentifier/GettingZonesbyIdentifier.html#//apple_ref/doc/uid/TP40015240-CH22-SW1
-        zones = []
-        for zone_id in zone_ids:
-            zones.append(zone_id.json())
+        zones_json = []
+        for zone in zones:
+            zones_json.append(zone.json())
 
         payload = {
-            'zones': zones,
+            'zones': zones_json,
         }
 
         json = Request.perform_request(
@@ -236,7 +236,23 @@ class Database:
 
     def fetch_all_record_zones(self):
         """Fetch all zones in the database."""
-        pass
+        # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/GettingAllZones/GettingAllZones.html#//apple_ref/doc/uid/TP40015240-CH21-SW3
+        json = Request.perform_request(
+            'GET',
+            self.container,
+            self.database_type,
+            'zones/list'
+        )
+
+        zones = []
+        objects_json = Request.parse(json, 'zones')
+        for object_json in objects_json:
+            zones.append(Zone(object_json))
+
+        if len(zones) > 0:
+            return self.fetch_record_zones(zones)
+        else:
+            return []
 
     def delete_record_zones(self, zone_ids):
         """Delete the specified zones."""
