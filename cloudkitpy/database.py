@@ -207,7 +207,8 @@ class Database:
 
     def save_record_zones(self, zone_ids):
         """Create one or more zones in the database."""
-        pass
+        # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/ModifyZones/ModifyZones.html#//apple_ref/doc/uid/TP40015240-CH10-SW1
+        return self.__modify_record_zones(zone_ids, 'create')
 
     def fetch_record_zones(self, zones):
         """Fetch one or more zones."""
@@ -256,4 +257,33 @@ class Database:
 
     def delete_record_zones(self, zone_ids):
         """Delete the specified zones."""
-        pass
+        # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/ModifyZones/ModifyZones.html#//apple_ref/doc/uid/TP40015240-CH10-SW1
+        return self.__modify_record_zones(zone_ids, 'delete')
+
+    def __modify_record_zones(self, zone_ids, operation_type):
+        # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/ModifyZones/ModifyZones.html#//apple_ref/doc/uid/TP40015240-CH10-SW1
+        operations = []
+        for zone_id in zone_ids:
+            operation = {
+                'operationType': operation_type,
+                'zone': zone_id.json()
+            }
+            operations.append(operation)
+
+        payload = {
+            'operations': operations,
+        }
+
+        json = Request.perform_request(
+            'POST',
+            self.container,
+            self.database_type,
+            'zones/modify',
+            payload
+        )
+
+        objects = []
+        objects_json = Request.parse(json, 'zones')
+        for object_json in objects_json:
+            objects.append(Zone(object_json))
+        return objects
