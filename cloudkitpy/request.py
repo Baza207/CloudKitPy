@@ -3,7 +3,7 @@
 # CloudKitPy
 #
 # Created by James Barrow on 28/04/2016.
-# Copyright (c) 2013-2016 Pig on a Hill Productions. All rights reserved.
+# Copyright (c) 2016 James Barrow - Pig on a Hill Productions.
 #
 
 # !/usr/bin/env python

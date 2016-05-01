@@ -4,7 +4,6 @@
 #
 # Created by James Barrow on 28/04/2016.
 # Copyright (c) 2016 James Barrow - Pig on a Hill Productions.
-# All rights reserved.
 #
 
 # !/usr/bin/env python
