@@ -225,7 +225,6 @@ class DataTypeTests(unittest.TestCase):
             'distance': distance
         }
         gen_filter_json = Filter(filter_json).json()
-
         ascending = False
         relative_location = None
         json = {
@@ -234,11 +233,9 @@ class DataTypeTests(unittest.TestCase):
             'relativeLocation': relative_location
         }
         gen_sort_descriptor = SortDescriptor(json).json()
-
         record_type = 'Type'
         filter_by = [gen_filter_json]
         sort_by = [gen_sort_descriptor]
-
         json = {
             'recordType': record_type,
             'filterBy': filter_by,
@@ -257,7 +254,6 @@ class DataTypeTests(unittest.TestCase):
         zone_id_json = {
             'zoneName': zone_name
         }
-
         record_name = 'Record Name'
         zone_id = ZoneID(zone_id_json).json()
         action = CloudKit.NONE
@@ -267,7 +263,6 @@ class DataTypeTests(unittest.TestCase):
             'action': action
         }
         gen_reference = Reference(json)
-
         self.failUnless(record_name == gen_reference.record_name)
         self.failUnless(zone_id == gen_reference.zone_id)
         self.failUnless(action == gen_reference.action)
@@ -308,7 +303,6 @@ class DataTypeTests(unittest.TestCase):
             'shouldSendContentAvailable': should_send_content_available
         }
         notification_info = NotificationInfo(json)
-
         comparator = CloudKit.EQUALS
         field_name = 'fieldName'
         field_value = 'value'
@@ -320,7 +314,6 @@ class DataTypeTests(unittest.TestCase):
             'distance': distance
         }
         gen_filter_json = Filter(filter_json).json()
-
         ascending = False
         relative_location = None
         json = {
@@ -329,7 +322,6 @@ class DataTypeTests(unittest.TestCase):
             'relativeLocation': relative_location
         }
         gen_sort_descriptor = SortDescriptor(json).json()
-
         record_type = 'Type'
         filter_by = [gen_filter_json]
         sort_by = [gen_sort_descriptor]
@@ -340,7 +332,6 @@ class DataTypeTests(unittest.TestCase):
             'sortBy': sort_by
         }
         query = Query(json)
-
         zone_name = 'Zone Name'
         zone_id = ZoneID()
         zone_id.zone_name = zone_name
