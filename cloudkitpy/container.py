@@ -58,13 +58,16 @@ class Container:
     def fetch_user_info(self):
         """Fetch information about the current user asynchronously."""
         # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/GetCurrentUser/GetCurrentUser.html#//apple_ref/doc/uid/TP40015240-CH12-SW1
-        json = Request.perform_request(
+        result = Request.perform_request(
             'GET',
             self,
             'public',
             'users/current'
         )
-        return UserInfo(json)
+        if result.is_success is True:
+            result.value = UserInfo(result.value)
+
+        return result
 
     def discover_user_info_with_email_address(self, email_address):
         """Fetch information about a single user.
@@ -78,7 +81,7 @@ class Container:
             ]
         }
 
-        json = Request.perform_request(
+        result = Request.perform_request(
             'POST',
             self,
             'public',
@@ -86,12 +89,16 @@ class Container:
             payload
         )
 
-        objects = []
-        objects_json = parse(json, 'users')
-        if objects_json is not None:
-            for object_json in objects_json:
-                objects.append(UserInfo(object_json))
-        return objects
+        if result.is_success is True:
+            objects = []
+            objects_json = parse(result.value, 'users')
+            if objects_json is not None:
+                for object_json in objects_json:
+                    objects.append(UserInfo(object_json))
+
+            result.value = objects
+
+        return result
 
     def discover_user_info_with_user_record_name(self, record_name):
         """Fetch information about a single user using the record name."""
@@ -102,7 +109,7 @@ class Container:
             ]
         }
 
-        json = Request.perform_request(
+        result = Request.perform_request(
             'POST',
             self,
             'public',
@@ -110,9 +117,13 @@ class Container:
             payload
         )
 
-        objects = []
-        objects_json = parse(json, 'users')
-        if objects_json is not None:
-            for object_json in objects_json:
-                objects.append(UserInfo(object_json))
-        return objects
+        if result.is_success is True:
+            objects = []
+            objects_json = parse(result.value, 'users')
+            if objects_json is not None:
+                for object_json in objects_json:
+                    objects.append(UserInfo(object_json))
+
+            result.value = objects
+
+        return result
