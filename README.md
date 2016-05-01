@@ -52,8 +52,8 @@ print user.user_record_name
 If you would like to contribute, please create an issue first before creating a pull request, just incase I am already working on that part of the project.
 
 ## Roadmap
-- [ ] **[IN PROGRESS]** Create wrappers for base parts of the CloudKit framework (data types, containers, databases and configuring)
-- [ ] Implement an error handling system and logging
+- [x] Create wrappers for base parts of the CloudKit framework (data types, containers, databases and configuring)
+- [ ] **[IN PROGRESS]** Implement an error handling system and logging
 - [ ] Continue with further wrappers for remaining parts of CloudKit
 - [ ] Expand for API usage for non-server-to-server usage
 - [ ] Comprehensive Unit Test Coverage
