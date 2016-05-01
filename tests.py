@@ -13,6 +13,7 @@ from datetime import datetime
 import time
 from cloudkitpy.cloudkit import CloudKit
 from cloudkitpy.value import CKValue
+from cloudkitpy.datatypes import Asset
 from cloudkitpy.datatypes import Filter
 from cloudkitpy.datatypes import NotificationInfo
 from cloudkitpy.datatypes import Query
@@ -91,8 +92,28 @@ class CKValueTests(unittest.TestCase):
 
 class DataTypeTests(unittest.TestCase):
 
-    # def test_asset(self):
-    #     pass
+    def test_asset(self):
+        file_checksum = 'qwerty1234567890'
+        size = 1234567890
+        reference_checksum = '1234567890qwerty'
+        wrapping_key = '12345qwerty67890'
+        receipt = 'receipt'
+        download_url = 'some/download/path'
+        json = {
+            'fileChecksum': file_checksum,
+            'size': size,
+            'referenceChecksum': reference_checksum,
+            'wrappingKey': wrapping_key,
+            'receipt': receipt,
+            'downloadURL': download_url
+        }
+        gen_asset = Asset(json)
+        self.failUnless(file_checksum == gen_asset.file_checksum)
+        self.failUnless(size == gen_asset.size)
+        self.failUnless(reference_checksum == gen_asset.reference_checksum)
+        self.failUnless(wrapping_key == gen_asset.wrapping_key)
+        self.failUnless(receipt == gen_asset.receipt)
+        self.failUnless(download_url == gen_asset.download_url)
 
     def test_filter(self):
         comparator = CloudKit.EQUALS
