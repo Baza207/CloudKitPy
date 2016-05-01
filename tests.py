@@ -38,7 +38,9 @@ class CKValueTests(unittest.TestCase):
             'type': 'STRING'
         }
         gen_value = CKValue(string)
-        self.failUnless(comp_value == gen_value)
+        gen_json_value = CKValue(json=comp_value)
+        self.failUnless(comp_value == gen_value.json())
+        self.failUnless(comp_value == gen_json_value.json())
 
     def test_int_value(self):
         integer = 1234
@@ -47,7 +49,9 @@ class CKValueTests(unittest.TestCase):
             'type': 'INT'
         }
         gen_value = CKValue(integer)
-        self.failUnless(comp_value == gen_value)
+        gen_json_value = CKValue(json=comp_value)
+        self.failUnless(comp_value == gen_value.json())
+        self.failUnless(comp_value == gen_json_value.json())
 
     def test_double_value(self):
         double = 1234.56789
@@ -56,7 +60,9 @@ class CKValueTests(unittest.TestCase):
             'type': 'DOUBLE'
         }
         gen_value = CKValue(double)
-        self.failUnless(comp_value == gen_value)
+        gen_json_value = CKValue(json=comp_value)
+        self.failUnless(comp_value == gen_value.json())
+        self.failUnless(comp_value == gen_json_value.json())
 
     def test_bool_value(self):
         boolean = False
@@ -64,7 +70,9 @@ class CKValueTests(unittest.TestCase):
             'value': boolean,
         }
         gen_value = CKValue(boolean)
-        self.failUnless(comp_value == gen_value)
+        gen_json_value = CKValue(json=comp_value)
+        self.failUnless(comp_value == gen_value.json())
+        self.failUnless(comp_value == gen_json_value.json())
 
     def test_datetime_value(self):
         date = datetime.utcnow()
@@ -73,7 +81,9 @@ class CKValueTests(unittest.TestCase):
             'value': timestamp,
         }
         gen_value = CKValue(date)
-        self.failUnless(comp_value == gen_value)
+        gen_json_value = CKValue(json=comp_value)
+        self.failUnless(comp_value == gen_value.json())
+        self.failUnless(comp_value == gen_json_value.json())
 
     def test_list_value(self):
         list_array = ['a', 'b', 'c']
@@ -81,7 +91,9 @@ class CKValueTests(unittest.TestCase):
             'value': list_array,
         }
         gen_value = CKValue(list_array)
-        self.failUnless(comp_value == gen_value)
+        gen_json_value = CKValue(json=comp_value)
+        self.failUnless(comp_value == gen_value.json())
+        self.failUnless(comp_value == gen_json_value.json())
 
     # def test_asset_value(self):
     #     pass
