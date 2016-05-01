@@ -16,7 +16,7 @@ This framework is based on Python 2.7.
 To install CloudKitPy follow the steps below:
 
 1. `cd` into the root directory via the terminal,
-2. Run `python setup.py install` (note you may have to `sudo` this),
+2. Run `python setup.py install`
 3. You're installed, just `import cloudkitpy` into your project to get started.
 
 **Note:** In the future I am planning to submit this to allow installation via `pip`. However I want this framework to be a lot more fleshed out before I do that.
