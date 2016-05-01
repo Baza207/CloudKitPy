@@ -9,7 +9,7 @@
 # !/usr/bin/env python
 
 from datatypes import ZoneID
-from request import Request
+from helpers import parse
 
 
 class CKError:
@@ -27,17 +27,17 @@ class CKError:
     zone_id = None
 
     def __init__(self, json):
-        self.ck_error_code = Request.parse(json, 'ckErrorCode')
+        self.ck_error_code = parse(json, 'ckErrorCode')
         self.is_error = self.ck_error_code is not None
-        self.server_error_code = Request.parse(json, 'serverErrorCode')
+        self.server_error_code = parse(json, 'serverErrorCode')
         self.is_server_error = self.server_error_code is not None
-        self.reason = Request.parse(json, 'reason')
-        self.retry_after = Request.parse(json, 'retryAfter')
-        self.uuid = Request.parse(json, 'uuid')
-        self.redirect_url = Request.parse(json, 'redirectURL')
-        self.record_name = Request.parse(json, 'recordName')
-        self.subscription_id = Request.parse(json, 'subscriptionID')
-        zone_id_json = Request.parse(json, 'zoneID')
+        self.reason = parse(json, 'reason')
+        self.retry_after = parse(json, 'retryAfter')
+        self.uuid = parse(json, 'uuid')
+        self.redirect_url = parse(json, 'redirectURL')
+        self.record_name = parse(json, 'recordName')
+        self.subscription_id = parse(json, 'subscriptionID')
+        zone_id_json = parse(json, 'zoneID')
         if zone_id_json is not None:
             zone_id = ZoneID(zone_id_json)
             self.zone_id = zone_id
