@@ -75,18 +75,6 @@ class Request:
         return signature
 
     @classmethod
-    def parse(cls, json, key):
-        value = None
-        try:
-            value = json[key]
-        except KeyError:
-            pass
-        except Exception, e:
-            raise e
-
-        return value
-
-    @classmethod
     def perform_request(
         cls,
         method,

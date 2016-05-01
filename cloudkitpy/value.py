@@ -10,7 +10,7 @@
 
 import datetime
 import time
-from request import Request
+from helpers import parse
 
 
 class CKValue:
@@ -58,8 +58,8 @@ class CKValue:
             self.value_type = value_type
 
     def update_json(self, json):
-        self.value = Request.parse(json, 'value')
-        self.value_type = Request.parse(json, 'type')
+        self.value = parse(json, 'value')
+        self.value_type = parse(json, 'type')
 
     def json(self):
         if self.value_type is None:

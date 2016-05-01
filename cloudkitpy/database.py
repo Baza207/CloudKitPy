@@ -11,6 +11,7 @@
 from datatypes import Record
 from datatypes import Zone
 from request import Request
+from helpers import parse
 
 
 class Database:
@@ -83,7 +84,7 @@ class Database:
         )
 
         objects = []
-        objects_json = Request.parse(json, 'records')
+        objects_json = parse(json, 'records')
         for object_json in objects_json:
             objects.append(Record(object_json))
         return objects
@@ -106,7 +107,7 @@ class Database:
         )
 
         objects = []
-        objects_json = Request.parse(json, 'records')
+        objects_json = parse(json, 'records')
         for object_json in objects_json:
             objects.append(Record(object_json))
         return objects
@@ -141,7 +142,7 @@ class Database:
         )
 
         objects = []
-        objects_json = Request.parse(json, 'records')
+        objects_json = parse(json, 'records')
         for object_json in objects_json:
             objects.append(Record(object_json))
         return objects
@@ -164,10 +165,10 @@ class Database:
         )
 
         objects = []
-        objects_json = Request.parse(json, 'records')
+        objects_json = parse(json, 'records')
         for object_json in objects_json:
             objects.append(Record(object_json))
-        continuation_marker = Request.parse(json, 'continuationMarker')
+        continuation_marker = parse(json, 'continuationMarker')
         return (objects, continuation_marker)
 
     # Syncing Records
@@ -193,13 +194,13 @@ class Database:
         )
 
         objects = []
-        objects_json = Request.parse(json, 'records')
+        objects_json = parse(json, 'records')
         for object_json in objects_json:
             objects.append(Record(object_json))
 
-        more_coming = Request.parse(json, 'moreComing')
-        reverse = Request.parse(json, 'reverse')
-        sync_token = Request.parse(json, 'syncToken')
+        more_coming = parse(json, 'moreComing')
+        reverse = parse(json, 'reverse')
+        sync_token = parse(json, 'syncToken')
 
         return (objects, more_coming, reverse, sync_token)
 
@@ -230,7 +231,7 @@ class Database:
         )
 
         objects = []
-        objects_json = Request.parse(json, 'zones')
+        objects_json = parse(json, 'zones')
         for object_json in objects_json:
             objects.append(Zone(object_json))
         return objects
@@ -246,7 +247,7 @@ class Database:
         )
 
         zones = []
-        objects_json = Request.parse(json, 'zones')
+        objects_json = parse(json, 'zones')
         for object_json in objects_json:
             zones.append(Zone(object_json))
 
@@ -283,7 +284,7 @@ class Database:
         )
 
         objects = []
-        objects_json = Request.parse(json, 'zones')
+        objects_json = parse(json, 'zones')
         for object_json in objects_json:
             objects.append(Zone(object_json))
         return objects

@@ -9,8 +9,9 @@
 # !/usr/bin/env python
 
 from database import Database
-from request import Request
 from datatypes import UserInfo
+from request import Request
+from helpers import parse
 
 
 class Container:
@@ -86,7 +87,7 @@ class Container:
         )
 
         objects = []
-        objects_json = Request.parse(json, 'users')
+        objects_json = parse(json, 'users')
         if objects_json is not None:
             for object_json in objects_json:
                 objects.append(UserInfo(object_json))
@@ -110,7 +111,7 @@ class Container:
         )
 
         objects = []
-        objects_json = Request.parse(json, 'users')
+        objects_json = parse(json, 'users')
         if objects_json is not None:
             for object_json in objects_json:
                 objects.append(UserInfo(object_json))
