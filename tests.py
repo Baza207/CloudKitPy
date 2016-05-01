@@ -95,14 +95,82 @@ class CKValueTests(unittest.TestCase):
         self.failUnless(comp_value == gen_value.json())
         self.failUnless(comp_value == gen_json_value.json())
 
-    # def test_asset_value(self):
-    #     pass
+    def test_asset_value(self):
+        file_checksum = 'qwerty1234567890'
+        size = 1234567890
+        reference_checksum = '1234567890qwerty'
+        wrapping_key = '12345qwerty67890'
+        receipt = 'receipt'
+        download_url = 'some/download/path'
+        json = {
+            'fileChecksum': file_checksum,
+            'size': size,
+            'referenceChecksum': reference_checksum,
+            'wrappingKey': wrapping_key,
+            'receipt': receipt,
+            'downloadURL': download_url
+        }
+        asset_json = Asset(json).json()
+        comp_value = {
+            'value': asset_json,
+            'type': 'ASSET'
+        }
+        gen_value = CKValue(asset_json, 'ASSET')
+        gen_json_value = CKValue(json=comp_value)
+        self.failUnless(comp_value == gen_value.json())
+        self.failUnless(comp_value == gen_json_value.json())
 
-    # def test_location_value(self):
-    #     pass
+    def test_location_value(self):
+        latitude = 12345.67890
+        longitude = 09876.54321
+        horizontal_accuracy = 10
+        vertical_accuracy = 20
+        altitude = 30
+        speed = 0
+        course = 90.0
+        timestamp = 1234567890
+        json = {
+            'latitude': latitude,
+            'longitude': longitude,
+            'horizontalAccuracy': horizontal_accuracy,
+            'verticalAccuracy': vertical_accuracy,
+            'altitude': altitude,
+            'speed': speed,
+            'course': course,
+            'timestamp': timestamp
+        }
+        location_json = Location(json).json()
+        comp_value = {
+            'value': location_json,
+            'type': 'LOCATION'
+        }
+        gen_value = CKValue(location_json, 'LOCATION')
+        gen_json_value = CKValue(json=comp_value)
+        self.failUnless(comp_value == gen_value.json())
+        self.failUnless(comp_value == gen_json_value.json())
 
-    # def test_reference_value(self):
-    #     pass
+    def test_reference_value(self):
+        zone_name = 'Zone Name'
+        zone_id_json = {
+            'zoneName': zone_name
+        }
+        record_name = 'Record Name'
+        zone_id = ZoneID(zone_id_json).json()
+        action = CloudKit.NONE
+        json = {
+            'recordName': record_name,
+            'zoneID': zone_id,
+            'action': action
+        }
+        reference_json = Reference(json).json()
+        comp_value = {
+            'value': reference_json,
+            'type': 'REFERENCE'
+        }
+        gen_value = CKValue(reference_json, 'REFERENCE')
+        gen_json_value = CKValue(json=comp_value)
+        self.failUnless(comp_value == gen_value.json())
+        self.failUnless(comp_value == gen_json_value.json())
 
 
 class DataTypeTests(unittest.TestCase):
