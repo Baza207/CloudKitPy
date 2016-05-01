@@ -18,6 +18,8 @@ from cloudkitpy.datatypes import Filter
 from cloudkitpy.datatypes import Location
 from cloudkitpy.datatypes import NotificationInfo
 from cloudkitpy.datatypes import Query
+# from cloudkitpy.datatypes import Record
+from cloudkitpy.datatypes import Reference
 from cloudkitpy.datatypes import SortDescriptor
 from cloudkitpy.datatypes import Subscription
 from cloudkitpy.datatypes import UserInfo
@@ -250,8 +252,25 @@ class DataTypeTests(unittest.TestCase):
     # def test_record(self):
     #     pass
 
-    # def test_reference(self):
-    #     pass
+    def test_reference(self):
+        zone_name = 'Zone Name'
+        zone_id_json = {
+            'zoneName': zone_name
+        }
+
+        record_name = 'Record Name'
+        zone_id = ZoneID(zone_id_json).json()
+        action = CloudKit.NONE
+        json = {
+            'recordName': record_name,
+            'zoneID': zone_id,
+            'action': action
+        }
+        gen_reference = Reference(json)
+
+        self.failUnless(record_name == gen_reference.record_name)
+        self.failUnless(zone_id == gen_reference.zone_id)
+        self.failUnless(action == gen_reference.action)
 
     def test_sort_descriptor(self):
         field_name = 'fieldName'
