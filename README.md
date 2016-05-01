@@ -43,8 +43,9 @@ container = ck.get_default_container()
 Now to get the current user and print it's record name, all you have to do is:
 
 ```python
-user = container.fetch_user_info()
-print user.user_record_name
+result = container.fetch_user_info()
+if result.is_success is True:
+    print result.value.user_record_name
 ```
 
 ## Contributions
@@ -80,8 +81,8 @@ Below is listed the sections of CloudKit that are being created in CloudKitPy. T
     - [x] Zone ID
     - [x] CloutKit Config
     - [x] Container Config
-- [ ] CKValue (mostly implemented, needs some expansion of `value_type` but the basic principle works)
-- [ ] **[IN PROGRESS]** CKError
+- [x] CKValue (mostly implemented, needs some expansion of `type` but the basic principle works)
+- [x] CKError
 - [x] Container
     - [x] Configuration
     - [x] Private and Public database creation
