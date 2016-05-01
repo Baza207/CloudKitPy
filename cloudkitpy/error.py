@@ -8,23 +8,39 @@
 
 # !/usr/bin/env python
 
+from datatypes import ZoneID
+from request import Request
+
 
 class CKError:
 
     is_error = False
-    error_code = None
+    ck_error_code = None
     is_server_error = False
     server_error_code = None
     reason = None
-    retry_after = 0
+    retry_after = None
     uuid = None
     redirect_url = None
     record_name = None
     subscription_id = None
     zone_id = None
 
-    def __init__(self):
-        pass
+    def __init__(self, json):
+        self.ck_error_code = Request.parse(json, 'ckErrorCode')
+        self.is_error = self.ck_error_code is not None
+        self.server_error_code = Request.parse(json, 'serverErrorCode')
+        self.is_server_error = self.server_error_code is not None
+        self.reason = Request.parse(json, 'reason')
+        self.retry_after = Request.parse(json, 'retryAfter')
+        self.uuid = Request.parse(json, 'uuid')
+        self.redirect_url = Request.parse(json, 'redirectURL')
+        self.record_name = Request.parse(json, 'recordName')
+        self.subscription_id = Request.parse(json, 'subscriptionID')
+        zone_id_json = Request.parse(json, 'zoneID')
+        if zone_id_json is not None:
+            zone_id = ZoneID(zone_id_json)
+            self.zone_id = zone_id
 
     ACCESS_DENIED = 'ACCESS_DENIED'
     ATOMIC_ERROR = 'ATOMIC_ERROR'
