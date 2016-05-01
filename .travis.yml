@@ -10,4 +10,4 @@ install:
 before_script:
     - flake8 --max-complexity=10 --statistics --exclude=migrations --benchmark .
 # command to run scripts
-script: nosetests
+script: python -m unittest discover
