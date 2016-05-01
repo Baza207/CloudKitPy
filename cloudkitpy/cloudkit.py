@@ -28,7 +28,11 @@ class CloudKit:
             )
             self.__containers.append(container)
 
-        print "CloudKit: %d containers configured" % len(self.__containers)
+        count = len(self.__containers)
+        plural = ''
+        if count != 1:
+            plural = 's'
+        print "CloudKit: %d container%s configured" % (count, plural)
 
     # Accessing Containers
 
