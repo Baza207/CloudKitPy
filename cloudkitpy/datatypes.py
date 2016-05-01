@@ -132,8 +132,8 @@ class NotificationInfo:
     alert_action_localization_key = None
     alert_launch_image = None
     sound_name = None
-    should_badge = None
-    should_send_content_available = None
+    should_badge = False
+    should_send_content_available = True
 
     def __init__(self, json=None):
         if json is not None:
@@ -260,7 +260,9 @@ class SortDescriptor:
     This determines the order of the fetched records.
     """
 
-    properties = None
+    field_name = None
+    ascending = True
+    relative_location = None
 
     def __init__(self, json=None):
         if json is not None:
@@ -288,9 +290,9 @@ class Subscription:
     subscription_type = None
     query = None
     fires_on = None
-    fires_once = None
+    fires_once = False
     notification_info = None
-    zone_wide = None
+    zone_wide = True
 
     def __init__(self, json=None):
         if json is not None:
