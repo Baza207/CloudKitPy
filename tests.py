@@ -15,6 +15,7 @@ from cloudkitpy.cloudkit import CloudKit
 from cloudkitpy.value import CKValue
 from cloudkitpy.datatypes import Asset
 from cloudkitpy.datatypes import Filter
+from cloudkitpy.datatypes import Location
 from cloudkitpy.datatypes import NotificationInfo
 from cloudkitpy.datatypes import Query
 from cloudkitpy.datatypes import SortDescriptor
@@ -132,8 +133,36 @@ class DataTypeTests(unittest.TestCase):
         self.failUnless(field_value == gen_filter.field_value)
         self.failUnless(distance == gen_filter.distance)
 
-    # def test_location(self):
-    #     pass
+    def test_location(self):
+        latitude = 12345.67890
+        longitude = 09876.54321
+        horizontal_accuracy = 10
+        vertical_accuracy = 20
+        altitude = 30
+        speed = 0
+        course = 90.0
+        timestamp = 1234567890
+        json = {
+            'latitude': latitude,
+            'longitude': longitude,
+            'horizontalAccuracy': horizontal_accuracy,
+            'verticalAccuracy': vertical_accuracy,
+            'altitude': altitude,
+            'speed': speed,
+            'course': course,
+            'timestamp': timestamp
+        }
+        gen_location = Location(json)
+        self.failUnless(latitude == gen_location.latitude)
+        self.failUnless(longitude == gen_location.longitude)
+        self.failUnless(
+            horizontal_accuracy == gen_location.horizontal_accuracy
+        )
+        self.failUnless(vertical_accuracy == gen_location.vertical_accuracy)
+        self.failUnless(altitude == gen_location.altitude)
+        self.failUnless(speed == gen_location.speed)
+        self.failUnless(course == gen_location.course)
+        self.failUnless(timestamp == gen_location.timestamp)
 
     def test_notification_info(self):
         alert_body = 'Alert body'
