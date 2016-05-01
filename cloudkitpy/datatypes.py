@@ -207,7 +207,7 @@ class Record:
     fields = None
     created = None
     modified = None
-    deleted = None
+    deleted = False
 
     def __init__(self, json=None):
         if json is not None:

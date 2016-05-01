@@ -18,7 +18,7 @@ from cloudkitpy.datatypes import Filter
 from cloudkitpy.datatypes import Location
 from cloudkitpy.datatypes import NotificationInfo
 from cloudkitpy.datatypes import Query
-# from cloudkitpy.datatypes import Record
+from cloudkitpy.datatypes import Record
 from cloudkitpy.datatypes import Reference
 from cloudkitpy.datatypes import SortDescriptor
 from cloudkitpy.datatypes import Subscription
@@ -246,8 +246,34 @@ class DataTypeTests(unittest.TestCase):
         self.failUnless(filter_by == gen_query.filter_by)
         self.failUnless(sort_by == gen_query.sort_by)
 
-    # def test_record(self):
-    #     pass
+    def test_record(self):
+        record_name = 'Record Name'
+        record_type = 'Type'
+        record_change_tag = 'a1'
+        fields = {
+            'intField': CKValue(1),
+            'stringField': CKValue('Hello World')
+        }
+        created = None
+        modified = None
+        deleted = True
+        json = {
+            'recordName': record_name,
+            'recordType': record_type,
+            'recordChangeTag': record_change_tag,
+            'fields': fields,
+            'created': created,
+            'modified': modified,
+            'deleted': deleted
+        }
+        gen_recrod = Record(json)
+        self.failUnless(record_name == gen_recrod.record_name)
+        self.failUnless(record_type == gen_recrod.record_type)
+        self.failUnless(record_change_tag == gen_recrod.record_change_tag)
+        self.failUnless(fields == gen_recrod.fields)
+        self.failUnless(created == gen_recrod.created)
+        self.failUnless(modified == gen_recrod.modified)
+        self.failUnless(deleted == gen_recrod.deleted)
 
     def test_reference(self):
         zone_name = 'Zone Name'
