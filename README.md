@@ -54,8 +54,9 @@ If you would like to contribute, please create an issue first before creating a 
 
 ## Roadmap
 - [x] Create wrappers for base parts of the CloudKit framework (data types, containers, databases and configuring)
-- [ ] **[IN PROGRESS]** Implement an error handling system and logging
-- [ ] Continue with further wrappers for remaining parts of CloudKit
+- [x] Implement an error handling system and logging
+- [ ] **[IN PROGRESS]** Continue with further wrappers for remaining parts of CloudKit
+- [ ] Create Example Code
 - [ ] Expand for API usage for non-server-to-server usage
 - [ ] Comprehensive Unit Test Coverage
 - [ ] Complete Documentation
@@ -91,7 +92,7 @@ Below is listed the sections of CloudKit that are being created in CloudKitPy. T
     - [x] Accessing Records
     - [x] Syncing Records
     - [x] Accessing Record Zones
-- [ ] Records Batch Builder
+- [ ] **[IN PROGRESS]** Records Batch Builder
 - [ ] Response
     - [ ] Record Zones Response
         - [ ] Changed Records Response
