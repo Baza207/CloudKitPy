@@ -14,8 +14,8 @@ from container import Container
 
 class CloudKit:
 
-    __logger = None
     __containers = []
+    logger = None
 
     def __init__(
         self,
@@ -25,7 +25,7 @@ class CloudKit:
     ):
         """Configure CloudKitPy."""
         if log_path is not None:
-            self.__logger = self.__setup_logger(
+            self.logger = self.__setup_logger(
                 log_path,
                 log_level
             )
@@ -38,7 +38,7 @@ class CloudKit:
                 container_config.api_token,
                 container_config.server_to_server_key,
                 container_config.cert_path,
-                self.__logger
+                self.logger
             )
             self.__containers.append(container)
 
@@ -46,7 +46,9 @@ class CloudKit:
         plural = ''
         if count != 1:
             plural = 's'
-        logging.info("CloudKit: %d container%s configured" % (count, plural))
+        self.logger.info(
+            "CloudKit: %d container%s configured" % (count, plural)
+        )
 
     def __setup_logger(
         self,

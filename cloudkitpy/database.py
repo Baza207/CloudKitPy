@@ -60,7 +60,8 @@ class Database:
             self.container,
             self.database_type,
             'records/modify',
-            payload
+            payload,
+            logger=self.__logger
         )
 
         if result.is_success is True:
@@ -119,7 +120,8 @@ class Database:
             self.container,
             self.database_type,
             'records/lookup',
-            payload
+            payload,
+            logger=self.__logger
         )
 
         if result.is_success is True:
@@ -158,7 +160,8 @@ class Database:
             self.container,
             self.database_type,
             'records/modify',
-            payload
+            payload,
+            logger=self.__logger
         )
 
         if result.is_success is True:
@@ -185,7 +188,8 @@ class Database:
             self.container,
             self.database_type,
             'records/query',
-            payload
+            payload,
+            logger=self.__logger
         )
 
         if result.is_success is True:
@@ -218,7 +222,8 @@ class Database:
             self.container,
             'private',
             'records/changes',
-            payload
+            payload,
+            logger=self.__logger
         )
 
         if result.is_success is True:
@@ -258,7 +263,8 @@ class Database:
             self.container,
             self.database_type,
             'zones/lookup',
-            payload
+            payload,
+            logger=self.__logger
         )
 
         if result.is_success is True:
@@ -278,7 +284,8 @@ class Database:
             'GET',
             self.container,
             self.database_type,
-            'zones/list'
+            'zones/list',
+            logger=self.__logger
         )
 
         if result.is_success is True:
@@ -318,7 +325,8 @@ class Database:
             self.container,
             self.database_type,
             'zones/modify',
-            payload
+            payload,
+            logger=self.__logger
         )
 
         if result.is_success is True:

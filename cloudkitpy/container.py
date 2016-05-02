@@ -75,7 +75,8 @@ class Container:
             'GET',
             self,
             'public',
-            'users/current'
+            'users/current',
+            logger=self.__logger
         )
         if result.is_success is True:
             result.value = UserInfo(result.value)
@@ -99,7 +100,8 @@ class Container:
             self,
             'public',
             'users/lookup/email',
-            payload
+            payload,
+            logger=self.__logger
         )
 
         if result.is_success is True:
@@ -127,7 +129,8 @@ class Container:
             self,
             'public',
             'users/lookup/id',
-            payload
+            payload,
+            logger=self.__logger
         )
 
         if result.is_success is True:

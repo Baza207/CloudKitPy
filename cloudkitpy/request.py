@@ -82,7 +82,8 @@ class Request:
         container,
         database,
         operation_subpath,
-        payload=None
+        payload=None,
+        logger=None
     ):
         date = cls.__iso_date()
         path = cls.__cloud_kit_path(database, container, operation_subpath)
@@ -112,7 +113,7 @@ class Request:
         json_dict = json.loads(r.text)
         result = Result(json_dict)
         if result.is_failure is True:
-            print "Error: %s" % result.error.reason
+            logger.debug("Error: %s" % result.error.reason)
         if result.is_success is True:
-            print "Response: %s" % result.value
+            logger.debug("Response: %s" % result.value)
         return result
