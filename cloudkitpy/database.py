@@ -38,6 +38,37 @@ class Database:
     ):
         """Save records to the database."""
         # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/ModifyRecords/ModifyRecords.html#//apple_ref/doc/uid/TP40015240-CH2-SW9
+        operations = self.__create_modify_operations(
+            records,
+            auto_fetch,
+            force
+        )
+
+        payload = {
+            'operations': operations,
+        }
+        if options is not None:
+            payload.update(options)
+
+        result = Request.perform_request(
+            'POST',
+            self.container,
+            self.database_type,
+            'records/modify',
+            payload
+        )
+
+        if result.is_success is True:
+            objects = []
+            objects_json = parse(result.value, 'records')
+            for object_json in objects_json:
+                objects.append(Record(object_json))
+
+            result.value = objects
+
+        return result
+
+    def __create_modify_operations(self, records, auto_fetch, force):
         operations = []
         for record in records:
             operation_type = None
@@ -69,26 +100,6 @@ class Database:
                 }
                 operations.append(operation)
 
-        payload = {
-            'operations': operations,
-        }
-        if options is not None:
-            payload.update(options)
-
-        json = Request.perform_request(
-            'POST',
-            self.container,
-            self.database_type,
-            'records/modify',
-            payload
-        )
-
-        objects = []
-        objects_json = parse(json, 'records')
-        for object_json in objects_json:
-            objects.append(Record(object_json))
-        return objects
-
     def fetch_records(self, records, options=None):
         """Fetch one or more records."""
         # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/LookupRecords/LookupRecords.html#//apple_ref/doc/uid/TP40015240-CH6-SW2
@@ -98,7 +109,7 @@ class Database:
         if options is not None:
             payload.update(options)
 
-        json = Request.perform_request(
+        result = Request.perform_request(
             'POST',
             self.container,
             self.database_type,
@@ -106,11 +117,15 @@ class Database:
             payload
         )
 
-        objects = []
-        objects_json = parse(json, 'records')
-        for object_json in objects_json:
-            objects.append(Record(object_json))
-        return objects
+        if result.is_success is True:
+            objects = []
+            objects_json = parse(result.value, 'records')
+            for object_json in objects_json:
+                objects.append(Record(object_json))
+
+            result.value = objects
+
+        return result
 
     def delete_records(self, records, force=False, options=None):
         """Delete one or more records."""
@@ -133,7 +148,7 @@ class Database:
         if options is not None:
             payload.update(options)
 
-        json = Request.perform_request(
+        result = Request.perform_request(
             'POST',
             self.container,
             self.database_type,
@@ -141,11 +156,15 @@ class Database:
             payload
         )
 
-        objects = []
-        objects_json = parse(json, 'records')
-        for object_json in objects_json:
-            objects.append(Record(object_json))
-        return objects
+        if result.is_success is True:
+            objects = []
+            objects_json = parse(result.value, 'records')
+            for object_json in objects_json:
+                objects.append(Record(object_json))
+
+            result.value = objects
+
+        return result
 
     def perform_query(self, query, options=None):
         """Fetch records using a query."""
@@ -156,7 +175,7 @@ class Database:
         if options is not None:
             payload.update(options)
 
-        json = Request.perform_request(
+        result = Request.perform_request(
             'POST',
             self.container,
             self.database_type,
@@ -164,12 +183,16 @@ class Database:
             payload
         )
 
-        objects = []
-        objects_json = parse(json, 'records')
-        for object_json in objects_json:
-            objects.append(Record(object_json))
-        continuation_marker = parse(json, 'continuationMarker')
-        return (objects, continuation_marker)
+        if result.is_success is True:
+            objects = []
+            objects_json = parse(result.value, 'records')
+            for object_json in objects_json:
+                objects.append(Record(object_json))
+            continuation_marker = parse(result.value, 'continuationMarker')
+
+            result.value = (objects, continuation_marker)
+
+        return result
 
     # Syncing Records
 
@@ -185,7 +208,7 @@ class Database:
         if options is not None:
             payload.update(options)
 
-        json = Request.perform_request(
+        result = Request.perform_request(
             'POST',
             self.container,
             'private',
@@ -193,16 +216,19 @@ class Database:
             payload
         )
 
-        objects = []
-        objects_json = parse(json, 'records')
-        for object_json in objects_json:
-            objects.append(Record(object_json))
+        if result.is_success is True:
+            objects = []
+            objects_json = parse(result.value, 'records')
+            for object_json in objects_json:
+                objects.append(Record(object_json))
 
-        more_coming = parse(json, 'moreComing')
-        reverse = parse(json, 'reverse')
-        sync_token = parse(json, 'syncToken')
+            more_coming = parse(result.value, 'moreComing')
+            reverse = parse(result.value, 'reverse')
+            sync_token = parse(result.value, 'syncToken')
 
-        return (objects, more_coming, reverse, sync_token)
+            result.value = (objects, more_coming, reverse, sync_token)
+
+        return result
 
     # Accessing Record Zones
 
@@ -222,7 +248,7 @@ class Database:
             'zones': zones_json,
         }
 
-        json = Request.perform_request(
+        result = Request.perform_request(
             'POST',
             self.container,
             self.database_type,
@@ -230,31 +256,38 @@ class Database:
             payload
         )
 
-        objects = []
-        objects_json = parse(json, 'zones')
-        for object_json in objects_json:
-            objects.append(Zone(object_json))
-        return objects
+        if result.is_success is True:
+            objects = []
+            objects_json = parse(result.value, 'zones')
+            for object_json in objects_json:
+                objects.append(Zone(object_json))
+
+            result.value = objects
+
+        return result
 
     def fetch_all_record_zones(self):
         """Fetch all zones in the database."""
         # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/GettingAllZones/GettingAllZones.html#//apple_ref/doc/uid/TP40015240-CH21-SW3
-        json = Request.perform_request(
+        result = Request.perform_request(
             'GET',
             self.container,
             self.database_type,
             'zones/list'
         )
 
-        zones = []
-        objects_json = parse(json, 'zones')
-        for object_json in objects_json:
-            zones.append(Zone(object_json))
+        if result.is_success is True:
+            zones = []
+            objects_json = parse(result.value, 'zones')
+            for object_json in objects_json:
+                zones.append(Zone(object_json))
 
-        if len(zones) > 0:
-            return self.fetch_record_zones(zones)
-        else:
-            return []
+            if len(zones) > 0:
+                result.value = self.fetch_record_zones(zones)
+            else:
+                result.value = []
+
+        return result
 
     def delete_record_zones(self, zone_ids):
         """Delete the specified zones."""
@@ -275,7 +308,7 @@ class Database:
             'operations': operations,
         }
 
-        json = Request.perform_request(
+        result = Request.perform_request(
             'POST',
             self.container,
             self.database_type,
@@ -283,8 +316,12 @@ class Database:
             payload
         )
 
-        objects = []
-        objects_json = parse(json, 'zones')
-        for object_json in objects_json:
-            objects.append(Zone(object_json))
-        return objects
+        if result.is_success is True:
+            objects = []
+            objects_json = parse(result.value, 'zones')
+            for object_json in objects_json:
+                objects.append(Zone(object_json))
+
+            result.value = objects
+
+        return result
