@@ -8,15 +8,28 @@
 
 # !/usr/bin/env python
 
+import logging
 from container import Container
 
 
 class CloudKit:
 
+    __logger = None
     __containers = []
 
-    def __init__(self, config):
+    def __init__(
+        self,
+        config,
+        log_path=None,
+        log_level=logging.NOTSET
+    ):
         """Configure CloudKitPy."""
+        if log_path is not None:
+            self.__logger = self.__setup_logger(
+                log_path,
+                log_level
+            )
+
         for container_config in config.containers:
             container = Container(
                 container_config.container_identifier,
@@ -24,7 +37,8 @@ class CloudKit:
                 container_config.apns_environment,
                 container_config.api_token,
                 container_config.server_to_server_key,
-                container_config.cert_path
+                container_config.cert_path,
+                self.__logger
             )
             self.__containers.append(container)
 
@@ -32,7 +46,29 @@ class CloudKit:
         plural = ''
         if count != 1:
             plural = 's'
-        print "CloudKit: %d container%s configured" % (count, plural)
+        logging.info("CloudKit: %d container%s configured" % (count, plural))
+
+    def __setup_logger(
+        self,
+        log_path=None,
+        log_level=logging.NOTSET
+    ):
+        log_format = '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+        logging.basicConfig(
+            level=log_level,
+            format=log_format,
+            filename=log_path,
+            filemode='a'
+        )
+        console = logging.StreamHandler()
+        console.setLevel(log_level)
+        formatter = logging.Formatter(
+            log_format
+        )
+        console.setFormatter(formatter)
+        logger = logging.getLogger('CloudKitPy')
+        logger.addHandler(console)
+        return logger
 
     # Accessing Containers
 

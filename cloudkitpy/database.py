@@ -16,14 +16,19 @@ from helpers import parse
 
 class Database:
 
+    __logger = None
+
     container = None
     database_type = None
 
     def __init__(
         self,
         container,
-        database_type
+        database_type,
+        logger=None
     ):
+        self.__logger = logger
+
         self.container = container
         self.database_type = database_type
 

@@ -16,6 +16,8 @@ from helpers import parse
 
 class Container:
 
+    __logger = None
+
     # Getting the Public and Private Databases
 
     public_cloud_database = None
@@ -40,8 +42,11 @@ class Container:
         apns_environment=None,
         api_token=None,
         server_to_server_key=None,
-        cert_path=None
+        cert_path=None,
+        logger=None
     ):
+        self.__logger = logger
+
         self.container_identifier = container_identifier
         self.environment = environment
         self.apns_environment = apns_environment
@@ -50,8 +55,16 @@ class Container:
         self.cert_path = cert_path
 
         # Setup public and private cloud databases
-        self.public_cloud_database = Database(self, 'public')
-        self.private_cloud_database = Database(self, 'private')
+        self.public_cloud_database = Database(
+            self,
+            'public',
+            self.__logger
+        )
+        self.private_cloud_database = Database(
+            self,
+            'private',
+            self.__logger
+        )
 
     # Discovering Users
 
