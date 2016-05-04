@@ -106,6 +106,8 @@ class Database:
                 }
                 operations.append(operation)
 
+        return operations
+
     def fetch_records(self, records, options=None):
         """Fetch one or more records."""
         # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/LookupRecords/LookupRecords.html#//apple_ref/doc/uid/TP40015240-CH6-SW2
