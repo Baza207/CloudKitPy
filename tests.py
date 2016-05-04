@@ -17,11 +17,11 @@ from cloudkitpy.datatypes import Asset
 from cloudkitpy.datatypes import Filter
 from cloudkitpy.datatypes import Location
 from cloudkitpy.datatypes import NotificationInfo
-from cloudkitpy.datatypes import Query
+# from cloudkitpy.datatypes import Query
 from cloudkitpy.datatypes import Record
 from cloudkitpy.datatypes import Reference
 from cloudkitpy.datatypes import SortDescriptor
-from cloudkitpy.datatypes import Subscription
+# from cloudkitpy.datatypes import Subscription
 from cloudkitpy.datatypes import UserInfo
 from cloudkitpy.datatypes import Zone
 from cloudkitpy.datatypes import ZoneID
