@@ -113,7 +113,7 @@ class Request:
         json_dict = json.loads(r.text)
         result = Result(json_dict)
         if result.is_failure is True:
-            logger.debug("Error: %s" % result.error.reason)
+            logger.error("Error: %s" % result.error.reason)
         if result.is_success is True:
             logger.debug("Response: %s" % result.value)
         return result
