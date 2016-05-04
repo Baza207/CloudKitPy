@@ -46,7 +46,7 @@ class CKValueTests(unittest.TestCase):
         integer = 1234
         comp_value = {
             'value': integer,
-            'type': 'INT'
+            'type': 'NUMBER_INT64'
         }
         gen_value = CKValue(integer)
         gen_json_value = CKValue(json=comp_value)
