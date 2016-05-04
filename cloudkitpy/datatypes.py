@@ -193,8 +193,8 @@ class Query:
         """Create a JSON object from the object's properties."""
         return {
             'recordType': self.record_type,
-            'filterBy': self.filter_by,
-            'sortBy': self.sort_by
+            'filterBy': self.filter_by.json(),
+            'sortBy': self.sort_by.json()
         }
 
 
