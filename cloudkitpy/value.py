@@ -44,7 +44,7 @@ class CKValue:
             self.value_type = 'DOUBLE'
         elif type(value) == int:
             self.value = value
-            self.value_type = 'INT'
+            self.value_type = 'NUMBER_INT64'
         elif type(value) == bool:
             self.value = value
             self.value = int(value)
