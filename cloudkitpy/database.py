@@ -184,7 +184,7 @@ class Database:
         """Fetch records using a query."""
         # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/QueryingRecords/QueryingRecords.html#//apple_ref/doc/uid/TP40015240-CH5-SW4
         payload = {
-            'query': query,
+            'query': query.json(),
         }
         if options is not None:
             payload.update(options)
