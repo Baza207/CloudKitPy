@@ -71,3 +71,11 @@ class CKValue:
                 'value': self.value,
                 'type': self.value_type
             }
+
+    @classmethod
+    def fields(cls, fields):
+        json = {}
+        for key in fields:
+            json[key] = CKValue(fields[key]).json()
+
+        return json
