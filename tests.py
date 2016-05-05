@@ -17,7 +17,7 @@ from cloudkitpy.datatypes import Asset
 from cloudkitpy.datatypes import Filter
 from cloudkitpy.datatypes import Location
 from cloudkitpy.datatypes import NotificationInfo
-# from cloudkitpy.datatypes import Query
+from cloudkitpy.datatypes import Query
 from cloudkitpy.datatypes import Record
 from cloudkitpy.datatypes import Reference
 from cloudkitpy.datatypes import SortDescriptor
@@ -293,38 +293,38 @@ class DataTypeTests(unittest.TestCase):
             gen_notification_info.should_send_content_available
         )
 
-    # def test_query(self):
-    #     comparator = CloudKit.EQUALS
-    #     field_name = 'fieldName'
-    #     field_value = 'value'
-    #     distance = None
-    #     filter_json = {
-    #         'comparator': comparator,
-    #         'fieldName': field_name,
-    #         'fieldValue': field_value,
-    #         'distance': distance
-    #     }
-    #     gen_filter_json = Filter(filter_json).json()
-    #     ascending = False
-    #     relative_location = None
-    #     json = {
-    #         'fieldName': field_name,
-    #         'ascending': ascending,
-    #         'relativeLocation': relative_location
-    #     }
-    #     gen_sort_descriptor = SortDescriptor(json).json()
-    #     record_type = 'Type'
-    #     filter_by = [gen_filter_json]
-    #     sort_by = [gen_sort_descriptor]
-    #     json = {
-    #         'recordType': record_type,
-    #         'filterBy': filter_by,
-    #         'sortBy': sort_by
-    #     }
-    #     gen_query = Query(json)
-    #     self.failUnless(record_type == gen_query.record_type)
-    #     self.failUnless(filter_by == gen_query.filter_by)
-    #     self.failUnless(sort_by == gen_query.sort_by)
+    def test_query(self):
+        comparator = CloudKit.EQUALS
+        field_name = 'fieldName'
+        field_value = 'value'
+        distance = None
+        filter_json = {
+            'comparator': comparator,
+            'fieldName': field_name,
+            'fieldValue': field_value,
+            'distance': distance
+        }
+        gen_filter_json = Filter(filter_json).json()
+        ascending = False
+        relative_location = None
+        json = {
+            'fieldName': field_name,
+            'ascending': ascending,
+            'relativeLocation': relative_location
+        }
+        gen_sort_descriptor = SortDescriptor(json).json()
+        record_type = 'Type'
+        filter_by = [gen_filter_json]
+        sort_by = [gen_sort_descriptor]
+        json = {
+            'recordType': record_type,
+            'filterBy': filter_by,
+            'sortBy': sort_by
+        }
+        gen_query = Query(json)
+        self.failUnless(record_type == gen_query.record_type)
+        self.failUnless(filter_by == gen_query.filter_by)
+        self.failUnless(sort_by == gen_query.sort_by)
 
     def test_record(self):
         record_name = 'Record Name'

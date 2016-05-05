@@ -189,12 +189,30 @@ class Query:
             self.filter_by = parse(json, 'filterBy')
             self.sort_by = parse(json, 'sortBy')
 
+        if self.filter_by is not None and len(self.filter_by) > 0:
+            for query_filter in self.filter_by:
+                query_filter = Filter(query_filter)
+
+        if self.sort_by is not None and len(self.sort_by) > 0:
+            for sort_descriptor in self.sort_by:
+                sort_descriptor = SortDescriptor(sort_descriptor)
+
     def json(self):
         """Create a JSON object from the object's properties."""
+        filter_by = []
+        if self.filter_by is not None and len(self.filter_by) > 0:
+            for query_filter in self.filter_by:
+                filter_by.append(query_filter.json())
+
+        sort_by = []
+        if self.sort_by is not None and len(self.sort_by) > 0:
+            for sort_descriptor in self.sort_by:
+                sort_by.append(sort_descriptor.json())
+
         return {
             'recordType': self.record_type,
-            'filterBy': self.filter_by.json(),
-            'sortBy': self.sort_by.json()
+            'filterBy': filter_by,
+            'sortBy': sort_by
         }
 
 
@@ -299,10 +317,12 @@ class Subscription:
             self.zone_id = parse(json, 'zoneID')
             self.subscription_id = parse(json, 'subscriptionID')
             self.subscription_type = parse(json, 'subscriptionType')
-            self.query = parse(json, 'query')
+            self.query = Query(parse(json, 'query'))
             self.fires_on = parse(json, 'firesOn')
             self.fires_once = parse(json, 'firesOnce')
-            self.notification_info = parse(json, 'notificationInfo')
+            self.notification_info = NotificationInfo(
+                parse(json, 'notificationInfo')
+            )
             self.zone_wide = parse(json, 'zoneWide')
 
     def json(self):
@@ -311,10 +331,10 @@ class Subscription:
             'zoneID': self.zone_id,
             'subscriptionID': self.subscription_id,
             'subscriptionType': self.subscription_type,
-            'query': self.query,
+            'query': self.query.json(),
             'firesOn': self.fires_on,
             'firesOnce': self.fires_once,
-            'notificationInfo': self.notification_info,
+            'notificationInfo': self.notification_info.json(),
             'zoneWide': self.zone_wide
         }
 
