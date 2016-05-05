@@ -380,14 +380,14 @@ class Zone:
 
     def __init__(self, json=None):
         if json is not None:
-            self.zone_id = parse(json, 'zoneID')
+            self.zone_id = ZoneID(parse(json, 'zoneID'))
             self.sync_token = parse(json, 'syncToken')
             self.atomic = parse(json, 'atomic')
 
     def json(self):
         """Create a JSON object from the object's properties."""
         return {
-            'zoneID': self.zone_id,
+            'zoneID': self.zone_id.json(),
             'syncToken': self.sync_token,
             'atomic': self.atomic
         }
