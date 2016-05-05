@@ -502,7 +502,7 @@ class DataTypeTests(unittest.TestCase):
             'atomic': atomic
         }
         gen_zone = Zone(json)
-        self.failUnless(zone_id.json() == gen_zone.zone_id)
+        self.failUnless(zone_id.json() == gen_zone.zone_id.json())
         self.failUnless(sync_token == gen_zone.sync_token)
         self.failUnless(atomic == gen_zone.atomic)
 
