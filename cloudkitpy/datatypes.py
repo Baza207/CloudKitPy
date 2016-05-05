@@ -180,22 +180,26 @@ class Query:
     """
 
     record_type = None
-    filter_by = None
-    sort_by = None
+    filter_by = []
+    sort_by = []
 
     def __init__(self, json=None):
+        filter_by_json = None
+        sort_by_json = None
         if json is not None:
             self.record_type = parse(json, 'recordType')
-            self.filter_by = parse(json, 'filterBy')
-            self.sort_by = parse(json, 'sortBy')
+            filter_by_json = parse(json, 'filterBy')
+            sort_by_json = parse(json, 'sortBy')
 
-        if self.filter_by is not None and len(self.filter_by) > 0:
-            for query_filter in self.filter_by:
-                query_filter = Filter(query_filter)
+        if filter_by_json is not None and len(filter_by_json) > 0:
+            self.filter_by = []
+            for query_filter in filter_by_json:
+                self.filter_by.append(Filter(query_filter))
 
-        if self.sort_by is not None and len(self.sort_by) > 0:
-            for sort_descriptor in self.sort_by:
-                sort_descriptor = SortDescriptor(sort_descriptor)
+        if sort_by_json is not None and len(sort_by_json) > 0:
+            self.sort_by = []
+            for sort_descriptor in sort_by_json:
+                self.sort_by.append(SortDescriptor(sort_descriptor))
 
     def json(self):
         """Create a JSON object from the object's properties."""
@@ -314,7 +318,7 @@ class Subscription:
 
     def __init__(self, json=None):
         if json is not None:
-            self.zone_id = parse(json, 'zoneID')
+            self.zone_id = ZoneID(parse(json, 'zoneID'))
             self.subscription_id = parse(json, 'subscriptionID')
             self.subscription_type = parse(json, 'subscriptionType')
             self.query = Query(parse(json, 'query'))

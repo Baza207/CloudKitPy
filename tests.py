@@ -21,7 +21,7 @@ from cloudkitpy.datatypes import Query
 from cloudkitpy.datatypes import Record
 from cloudkitpy.datatypes import Reference
 from cloudkitpy.datatypes import SortDescriptor
-# from cloudkitpy.datatypes import Subscription
+from cloudkitpy.datatypes import Subscription
 from cloudkitpy.datatypes import UserInfo
 from cloudkitpy.datatypes import Zone
 from cloudkitpy.datatypes import ZoneID
@@ -323,8 +323,8 @@ class DataTypeTests(unittest.TestCase):
         }
         gen_query = Query(json)
         self.failUnless(record_type == gen_query.record_type)
-        self.failUnless(filter_by == gen_query.filter_by)
-        self.failUnless(sort_by == gen_query.sort_by)
+        self.failUnless(filter_by[0] == gen_query.filter_by[0].json())
+        self.failUnless(sort_by[0] == gen_query.sort_by[0].json())
 
     def test_record(self):
         record_name = 'Record Name'
@@ -389,87 +389,86 @@ class DataTypeTests(unittest.TestCase):
             relative_location == gen_sort_descriptor.relative_location
         )
 
-    # def test_subscription(self):
-    #     alert_body = None
-    #     alert_localization_key = None
-    #     alert_localization_args = None
-    #     alert_action_localization_key = None
-    #     alert_launch_image = None
-    #     sound_name = None
-    #     should_badge = False
-    #     should_send_content_available = True
-    #     json = {
-    #         'alertBody': alert_body,
-    #         'alertLocalizationKey': alert_localization_key,
-    #         'alertLocalizationArgs': alert_localization_args,
-    #         'alertActionLocalizationKey': alert_action_localization_key,
-    #         'alertLaunchImage': alert_launch_image,
-    #         'soundName': sound_name,
-    #         'shouldBadge': should_badge,
-    #         'shouldSendContentAvailable': should_send_content_available
-    #     }
-    #     notification_info = NotificationInfo(json)
-    #     comparator = CloudKit.EQUALS
-    #     field_name = 'fieldName'
-    #     field_value = 'value'
-    #     distance = None
-    #     filter_json = {
-    #         'comparator': comparator,
-    #         'fieldName': field_name,
-    #         'fieldValue': field_value,
-    #         'distance': distance
-    #     }
-    #     gen_filter_json = Filter(filter_json).json()
-    #     ascending = False
-    #     relative_location = None
-    #     json = {
-    #         'fieldName': field_name,
-    #         'ascending': ascending,
-    #         'relativeLocation': relative_location
-    #     }
-    #     gen_sort_descriptor = SortDescriptor(json).json()
-    #     record_type = 'Type'
-    #     filter_by = [gen_filter_json]
-    #     sort_by = [gen_sort_descriptor]
-
-    #     json = {
-    #         'recordType': record_type,
-    #         'filterBy': filter_by,
-    #         'sortBy': sort_by
-    #     }
-    #     query = Query(json)
-    #     zone_name = 'Zone Name'
-    #     zone_id = ZoneID()
-    #     zone_id.zone_name = zone_name
-    #     subscription_id = 'Subscription ID'
-    #     subscription_type = 'query'
-    #     fires_on = 'update'
-    #     fires_once = False
-    #     zone_wide = True
-    #     json = {
-    #         'zoneID': zone_id,
-    #         'subscriptionID': subscription_id,
-    #         'subscriptionType': subscription_type,
-    #         'query': query,
-    #         'firesOn': fires_on,
-    #         'firesOnce': fires_once,
-    #         'notificationInfo': notification_info,
-    #         'zoneWide': zone_wide
-    #     }
-    #     gen_subscription = Subscription(json)
-    #     self.failUnless(zone_id.json() == gen_subscription.zone_id.json())
-    #     self.failUnless(subscription_id == gen_subscription.subscription_id)
-    #     self.failUnless(
-    #         subscription_type == gen_subscription.subscription_type
-    #     )
-    #     self.failUnless(query.json() == gen_subscription.query.json())
-    #     self.failUnless(fires_on == gen_subscription.fires_on)
-    #     self.failUnless(fires_once == gen_subscription.fires_once)
-    #     self.failUnless(
-    #         notification_info.json() ==
-    #         gen_subscription.notification_info.json()
-    #     )
-    #     self.failUnless(zone_wide == gen_subscription.zone_wide)
+    def test_subscription(self):
+        alert_body = None
+        alert_localization_key = None
+        alert_localization_args = None
+        alert_action_localization_key = None
+        alert_launch_image = None
+        sound_name = None
+        should_badge = False
+        should_send_content_available = True
+        json = {
+            'alertBody': alert_body,
+            'alertLocalizationKey': alert_localization_key,
+            'alertLocalizationArgs': alert_localization_args,
+            'alertActionLocalizationKey': alert_action_localization_key,
+            'alertLaunchImage': alert_launch_image,
+            'soundName': sound_name,
+            'shouldBadge': should_badge,
+            'shouldSendContentAvailable': should_send_content_available
+        }
+        gen_notification_info = NotificationInfo(json).json()
+        comparator = CloudKit.EQUALS
+        field_name = 'fieldName'
+        field_value = 'value'
+        distance = None
+        filter_json = {
+            'comparator': comparator,
+            'fieldName': field_name,
+            'fieldValue': field_value,
+            'distance': distance
+        }
+        gen_filter_json = Filter(filter_json).json()
+        ascending = False
+        relative_location = None
+        sort_descriptor_json = {
+            'fieldName': field_name,
+            'ascending': ascending,
+            'relativeLocation': relative_location
+        }
+        gen_sort_descriptor = SortDescriptor(sort_descriptor_json).json()
+        record_type = 'Type'
+        filter_by = [gen_filter_json]
+        sort_by = [gen_sort_descriptor]
+        query_json = {
+            'recordType': record_type,
+            'filterBy': filter_by,
+            'sortBy': sort_by
+        }
+        query = Query(query_json)
+        zone_name = 'Zone Name'
+        zone_id = ZoneID()
+        zone_id.zone_name = zone_name
+        subscription_id = 'Subscription ID'
+        subscription_type = 'query'
+        fires_on = 'update'
+        fires_once = False
+        zone_wide = True
+        json = {
+            'zoneID': zone_id.json(),
+            'subscriptionID': subscription_id,
+            'subscriptionType': subscription_type,
+            'query': query.json(),
+            'firesOn': fires_on,
+            'firesOnce': fires_once,
+            'notificationInfo': gen_notification_info,
+            'zoneWide': zone_wide
+        }
+        gen_subscription = Subscription(json)
+        self.failUnless(zone_id.json() == gen_subscription.zone_id.json())
+        self.failUnless(subscription_id == gen_subscription.subscription_id)
+        self.failUnless(
+            subscription_type == gen_subscription.subscription_type
+        )
+        self.failUnless(query.json() == gen_subscription.query.json())
+        self.failUnless(fires_on == gen_subscription.fires_on)
+        self.failUnless(fires_once == gen_subscription.fires_once)
+        self.failUnless(
+            gen_notification_info ==
+            gen_subscription.notification_info.json()
+        )
+        self.failUnless(zone_wide == gen_subscription.zone_wide)
 
     def test_user_info(self):
         user_record_name = 'Record name'
