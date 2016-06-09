@@ -28,8 +28,8 @@ To install CloudKitPy follow the steps below:
 To setup a CloudKit instance to connect to CloudKit, use the following code:
 
 ```python
-from cloudkitpy.ckdatatypes import ContainerConfig
-from cloudkitpy.ckdatatypes import CloudKitConfig
+from cloudkitpy.datatypes import ContainerConfig
+from cloudkitpy.datatypes import CloudKitConfig
 from cloudkitpy.cloudkit import CloudKit
 
 my_container = ContainerConfig(
@@ -39,7 +39,7 @@ my_container = ContainerConfig(
     cert_path='<path to your private key>'
 )
 cloudkit_config = CloudKitConfig([my_container])
-ck = CloudKit(cloudkit_config)
+ck = CloudKit(cloudkit_config, log_path='log.txt')
 container = ck.get_default_container()
 ```
 
