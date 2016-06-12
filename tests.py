@@ -57,7 +57,7 @@ class CKValueTests(unittest.TestCase):
         double = 1234.56789
         comp_value = {
             'value': double,
-            'type': 'DOUBLE'
+            'type': 'NUMBER_DOUBLE'
         }
         gen_value = CKValue(double)
         gen_json_value = CKValue(json=comp_value)
