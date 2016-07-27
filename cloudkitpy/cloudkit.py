@@ -20,7 +20,7 @@ class CloudKit:
     def __init__(
         self,
         config,
-        log_path=None,
+        log_path='',
         log_level=logging.NOTSET
     ):
         """Configure CloudKitPy."""
