@@ -78,12 +78,13 @@ class CKValueTests(unittest.TestCase):
         date = datetime.utcnow()
         timestamp = time.mktime(date.timetuple())
         comp_value = {
-            'value': timestamp,
+            'value': int(timestamp * 1000),
+            'type': 'TIMESTAMP'
         }
         gen_value = CKValue(date)
         gen_json_value = CKValue(json=comp_value)
         self.failUnless(comp_value == gen_value.json())
-        self.failUnless(comp_value == gen_json_value.json())
+        self.failUnless(date.timetuple() == gen_json_value.value.timetuple())
 
     def test_list_value(self):
         list_array = ['a', 'b', 'c']
