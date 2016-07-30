@@ -24,11 +24,10 @@ class CloudKit:
         log_level=logging.NOTSET
     ):
         """Configure CloudKitPy."""
-        if log_path is not None:
-            self.logger = self.__setup_logger(
-                log_path,
-                log_level
-            )
+        self.logger = self.__setup_logger(
+            log_path,
+            log_level
+        )
 
         for container_config in config.containers:
             container = Container(
@@ -52,24 +51,26 @@ class CloudKit:
 
     def __setup_logger(
         self,
-        log_path=None,
-        log_level=logging.NOTSET
+        log_path,
+        log_level
     ):
         log_format = '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
-        logging.basicConfig(
-            level=log_level,
-            format=log_format,
-            filename=log_path,
-            filemode='a'
-        )
+        formatter = logging.Formatter(log_format)
+
+        logger = logging.getLogger('CloudKitPy')
+        logger.setLevel(log_level)
+
+        if log_path != '':
+            handler = logging.FileHandler(log_path, 'a')
+            handler.setLevel(log_level)
+            handler.setFormatter(formatter)
+            logger.addHandler(handler)
+
         console = logging.StreamHandler()
         console.setLevel(log_level)
-        formatter = logging.Formatter(
-            log_format
-        )
         console.setFormatter(formatter)
-        logger = logging.getLogger('CloudKitPy')
         logger.addHandler(console)
+
         return logger
 
     # Accessing Containers
