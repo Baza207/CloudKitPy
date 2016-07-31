@@ -21,12 +21,14 @@ class CloudKit:
         self,
         config,
         log_path='',
-        log_level=logging.NOTSET
+        log_level=logging.NOTSET,
+        file_log_level=logging.ERROR
     ):
         """Configure CloudKitPy."""
         self.logger = self.__setup_logger(
             log_path,
-            log_level
+            log_level,
+            file_log_level
         )
 
         for container_config in config.containers:
@@ -52,7 +54,8 @@ class CloudKit:
     def __setup_logger(
         self,
         log_path,
-        log_level
+        log_level,
+        file_log_level
     ):
         log_format = '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
         formatter = logging.Formatter(log_format)
