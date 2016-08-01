@@ -172,6 +172,43 @@ class CKValueTests(unittest.TestCase):
         self.failUnless(comp_value == gen_value.json())
         self.failUnless(comp_value == gen_json_value.json())
 
+    def test_fields_value_dict(self):
+        string = 'Hello World'
+        integer = 1234
+        double = 1234.56789
+        boolean = False
+
+        value_dict = {
+            'my_string': string,
+            'my_int': integer,
+            'my_double': double,
+            'my_boolean': boolean
+        }
+
+        fields = {
+            'my_string': {
+                'value': string,
+                'type': 'STRING'
+            },
+            'my_int': {
+                'value': integer,
+                'type': 'NUMBER_INT64'
+            },
+            'my_double': {
+                'value': double,
+                'type': 'NUMBER_DOUBLE'
+            },
+            'my_boolean': {
+                'value': boolean,
+            }
+        }
+
+        gen_fields = CKValue.fields(value_dict)
+        gen_value_dict = CKValue.value_dict(fields)
+
+        self.failUnless(fields == gen_fields)
+        self.failUnless(value_dict == gen_value_dict)
+
 
 class DataTypeTests(unittest.TestCase):
 

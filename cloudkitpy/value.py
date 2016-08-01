@@ -78,9 +78,17 @@ class CKValue:
             }
 
     @classmethod
-    def fields(cls, fields):
-        json = {}
-        for key in fields:
-            json[key] = CKValue(fields[key]).json()
+    def fields(cls, value_dict):
+        fields = {}
+        for key in value_dict:
+            fields[key] = CKValue(value_dict[key]).json()
 
-        return json
+        return fields
+
+    @classmethod
+    def value_dict(cls, fields):
+        value_dict = {}
+        for key in fields:
+            value_dict[key] = CKValue(json=fields[key]).value
+
+        return value_dict
