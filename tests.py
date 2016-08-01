@@ -10,7 +10,6 @@
 
 import unittest
 from datetime import datetime
-import time
 from cloudkitpy.cloudkit import CloudKit
 from cloudkitpy.value import CKValue
 from cloudkitpy.datatypes import Asset
@@ -76,7 +75,7 @@ class CKValueTests(unittest.TestCase):
 
     def test_datetime_value(self):
         date = datetime.utcnow()
-        timestamp = time.mktime(date.timetuple())
+        timestamp = (date - datetime(1970, 1, 1)).total_seconds()
         comp_value = {
             'value': int(timestamp * 1000),
             'type': 'TIMESTAMP'

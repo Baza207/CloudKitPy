@@ -49,9 +49,9 @@ class CKValue:
             self.value = int(value)
             self.value_type = value_type
         elif type(value) == datetime.datetime:
-            timestamp = int(time.mktime(value.timetuple()))
+            timestamp = (value - datetime.datetime(1970, 1, 1)).total_seconds()
             timestamp = timestamp * 1000    # Timestamp with nanoseconds
-            self.value = timestamp
+            self.value = int(timestamp)
             self.value_type = 'TIMESTAMP'
         else:
             self.value = value
@@ -60,9 +60,9 @@ class CKValue:
     def update_json(self, json):
         self.value_type = parse(json, 'type')
         if self.value_type == 'TIMESTAMP':
-            timestamp = int(parse(json, 'value'))
+            timestamp = parse(json, 'value')
             timestamp = float(timestamp) / 1000    # Timestamp with nanoseconds
-            self.value = datetime.datetime.fromtimestamp(timestamp)
+            self.value = datetime.datetime.utcfromtimestamp(timestamp)
         else:
             self.value = parse(json, 'value')
 
