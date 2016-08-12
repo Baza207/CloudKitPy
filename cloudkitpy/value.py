@@ -48,7 +48,11 @@ class CKValue:
             self.value = int(value)
             self.value_type = value_type
         elif type(value) == datetime.datetime:
+            utcoffset = value.utcoffset()
+            value = value.replace(tzinfo=None)
             timestamp = (value - datetime.datetime(1970, 1, 1)).total_seconds()
+            if utcoffset is not None:
+                timestamp -= utcoffset.seconds
             timestamp = timestamp * 1000    # Timestamp with nanoseconds
             self.value = int(timestamp)
             self.value_type = 'TIMESTAMP'
