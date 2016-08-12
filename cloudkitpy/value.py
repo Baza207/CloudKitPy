@@ -10,6 +10,7 @@
 
 import datetime
 from helpers import parse
+from datatypes import Reference
 
 
 class CKValue:
@@ -66,6 +67,13 @@ class CKValue:
             timestamp = parse(json, 'value')
             timestamp = float(timestamp) / 1000    # Timestamp with nanoseconds
             self.value = datetime.datetime.utcfromtimestamp(timestamp)
+        if self.value_type == 'REFERENCE_LIST':
+            item_list = parse(json, 'value')
+            references = []
+            for item in item_list:
+                reference = Reference(item)
+                references.append(reference)
+            self.value = references
         else:
             self.value = parse(json, 'value')
 
