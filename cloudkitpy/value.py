@@ -67,7 +67,7 @@ class CKValue:
             timestamp = parse(json, 'value')
             timestamp = float(timestamp) / 1000    # Timestamp with nanoseconds
             self.value = datetime.datetime.utcfromtimestamp(timestamp)
-        if self.value_type == 'REFERENCE_LIST':
+        elif self.value_type == 'REFERENCE_LIST':
             item_list = parse(json, 'value')
             references = []
             for item in item_list:
