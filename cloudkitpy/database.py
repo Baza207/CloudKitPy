@@ -180,12 +180,18 @@ class Database:
 
         return result
 
-    def perform_query(self, query, options=None):
+    def perform_query(self, query, continuation_marker=None, options=None):
         """Fetch records using a query."""
         # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/QueryingRecords/QueryingRecords.html#//apple_ref/doc/uid/TP40015240-CH5-SW4
         payload = {
             'query': query.json(),
         }
+
+        if continuation_marker is not None:
+            if options is None:
+                options = {}
+            options['continuationMarker'] = continuation_marker
+
         if options is not None:
             payload.update(options)
 
