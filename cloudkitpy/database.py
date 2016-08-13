@@ -108,12 +108,37 @@ class Database:
 
         return operations
 
-    def fetch_records(self, records, options=None):
+    def fetch_records(
+        self,
+        records=None,
+        record_names=None,
+        references=None,
+        options=None
+    ):
         """Fetch one or more records."""
         # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/LookupRecords/LookupRecords.html#//apple_ref/doc/uid/TP40015240-CH6-SW2
         json_records = []
-        for record in records:
-            json_records.append(record.json())
+
+        # Create JSON for records
+        if records is not None:
+            for record in records:
+                json_records.append(record.json())
+
+        # Create JSON for record names
+        if record_names is not None:
+            for record_name in record_names:
+                record = Record()
+                record.record_name = record_name
+                json_records.append(record.json())
+
+        # Create JSON for record names
+        if references is not None:
+            for reference in references:
+                record = Record()
+                record_name = reference.record_name
+                if record_name is not None and len(record_name) > 0:
+                    record.record_name = record_name
+                    json_records.append(record.json())
 
         payload = {
             'records': json_records,
