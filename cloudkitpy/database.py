@@ -86,7 +86,7 @@ class Database:
                 operation_type = 'create'
             elif auto_fetch is True:
                 # Fetch, and if record is returned,
-                # append the change tap and update
+                # append the change tag and update
                 fetch_record_dict = {
                     'recordName': record.record_name,
                     'desiredKeys': None
