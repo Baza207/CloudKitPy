@@ -41,10 +41,10 @@ class CKValue:
             self.value_type = 'STRING'
         elif type(value) == float:
             self.value = value
-            self.value_type = 'NUMBER_DOUBLE'
+            self.value_type = 'DOUBLE'
         elif type(value) == int:
             self.value = value
-            self.value_type = 'NUMBER_INT64'
+            self.value_type = 'INT64'
         elif type(value) == bool:
             self.value = int(value)
             self.value_type = value_type
