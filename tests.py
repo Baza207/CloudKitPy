@@ -45,7 +45,7 @@ class CKValueTests(unittest.TestCase):
         integer = 1234
         comp_value = {
             'value': integer,
-            'type': 'NUMBER_INT64'
+            'type': 'INT64'
         }
         gen_value = CKValue(integer)
         gen_json_value = CKValue(json=comp_value)
@@ -56,7 +56,7 @@ class CKValueTests(unittest.TestCase):
         double = 1234.56789
         comp_value = {
             'value': double,
-            'type': 'NUMBER_DOUBLE'
+            'type': 'DOUBLE'
         }
         gen_value = CKValue(double)
         gen_json_value = CKValue(json=comp_value)
@@ -192,11 +192,11 @@ class CKValueTests(unittest.TestCase):
             },
             'my_int': {
                 'value': integer,
-                'type': 'NUMBER_INT64'
+                'type': 'INT64'
             },
             'my_double': {
                 'value': double,
-                'type': 'NUMBER_DOUBLE'
+                'type': 'DOUBLE'
             },
             'my_boolean': {
                 'value': boolean,
