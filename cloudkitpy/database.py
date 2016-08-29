@@ -111,6 +111,7 @@ class Database:
     def fetch_records(
         self,
         records=None,
+        record_type=None,
         record_names=None,
         references=None,
         options=None
@@ -119,6 +120,7 @@ class Database:
         # https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/CloutKitWebServicesReference/LookupRecords/LookupRecords.html#//apple_ref/doc/uid/TP40015240-CH6-SW2
         json_records = self.__create_fetch_json_records(
             records,
+            record_type,
             record_names,
             references
         )
@@ -151,6 +153,7 @@ class Database:
     def __create_fetch_json_records(
         self,
         records=None,
+        record_type=None,
         record_names=None,
         references=None
     ):
@@ -165,6 +168,7 @@ class Database:
         if record_names is not None:
             for record_name in record_names:
                 record = Record()
+                record.record_type = record_type
                 record.record_name = record_name
                 json_records.append(record.json())
 
