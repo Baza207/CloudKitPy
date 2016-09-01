@@ -102,7 +102,7 @@ class CKError:
     UNEXPECTED_SERVER_RESPONSE = 'UNEXPECTED_SERVER_RESPONSE'
     CONFIGURATION_ERROR = 'CONFIGURATION_ERROR'
 
-    ACCESS_DENIED_REASON = 'You don’t have permission to access the endpoint, record, zone, or database.'   # noqa
+    ACCESS_DENIED_REASON = 'You don\'t have permission to access the endpoint, record, zone, or database.'   # noqa
     ATOMIC_ERROR_REASON = 'An atomic batch operation failed.'
     AUTHENTICATION_FAILED_REASON = 'Authentication was rejected.'
     AUTHENTICATION_REQUIRED_REASON = 'The request requires authentication but none was provided.'   # noqa
@@ -111,7 +111,7 @@ class CKError:
     EXISTS_REASON = 'The resource that you attempted to create already exists.'
     INTERNAL_ERROR_REASON = 'An internal error occurred.'
     NOT_FOUND_REASON = 'The resource was not found.'
-    QUOTA_EXCEEDED_REASON = 'If accessing the public database, you exceeded the app’s quota. If accessing the private database, you exceeded the user’s iCloud quota.'   # noqa
+    QUOTA_EXCEEDED_REASON = 'If accessing the public database, you exceeded the app\'s quota. If accessing the private database, you exceeded the user\'s iCloud quota.'   # noqa
     THROTTLED_REASON = 'The request was throttled. Try the request again later.'   # noqa
     TRY_AGAIN_LATER_REASON = 'An internal error occurred. Try the request again.'   # noqa
     VALIDATING_REFERENCE_ERROR_REASON = 'The request violates a validating reference constraint.'   # noqa
