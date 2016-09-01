@@ -18,8 +18,8 @@ class Result:
     value = None
     error = None
 
-    def __init__(self, json, payload):
-        error = CKError(json, payload)
+    def __init__(self, json, code, payload):
+        error = CKError(json, code, payload)
         is_ck_error = error.is_error is True or error.is_server_error is True
         if json is None or is_ck_error:
             if json is None:

@@ -26,6 +26,7 @@ class CKError:
     subscription_id = None
     zone_id = None
     payload = None
+    code = None
 
     def __init__(self, json, code, payload):
         if json is not None:
@@ -44,6 +45,7 @@ class CKError:
                 zone_id = ZoneID(zone_id_json)
                 self.zone_id = zone_id
         self.payload = payload
+        self.code = code
 
     ACCESS_DENIED = 'ACCESS_DENIED'
     ATOMIC_ERROR = 'ATOMIC_ERROR'

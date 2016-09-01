@@ -121,7 +121,7 @@ class Request:
                     operation_subpath
                 )
             )
-        result = Result(json_dict, payload)
+        result = Result(json_dict, r.status_code, payload)
         if result.is_failure is True:
             logger.error("Request failed: %s" % result.error.reason)
             logger.debug("Request failed payload: %s" % payload)
