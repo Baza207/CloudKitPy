@@ -47,11 +47,43 @@ class CKError:
                 self.zone_id = zone_id
         self.payload = payload
         self.status_code = status_code
-        self.status_code_reason = self.__error_from_satus_code(status_code)
+        self.status_code_reason = self.__error_reason_from_satus_code(
+            status_code
+        )
+        if status_code != 200 and self.server_error_code is None:
+            self.server_error_code = self.__error_from_satus_code(status_code)
         if self.reason is None:
             self.reason = self.status_code_reason
 
     def __error_from_satus_code(self, status_code):   # noqa
+        if status_code is None:
+            return None
+        elif status_code == 403:
+            return CKError.ACCESS_DENIED
+        elif status_code == 400:
+            return CKError.BAD_REQUEST
+        elif status_code == 401:
+            return CKError.AUTHENTICATION_FAILED
+        elif status_code == 404:
+            return CKError.NOT_FOUND
+        elif status_code == 409:
+            return CKError.EXISTS
+        elif status_code == 412:
+            return CKError.VALIDATING_REFERENCE_ERROR
+        elif status_code == 413:
+            return CKError.QUOTA_EXCEEDED
+        elif status_code == 421:
+            return CKError.AUTHENTICATION_REQUIRED
+        elif status_code == 429:
+            return CKError.THROTTLED
+        elif status_code == 500:
+            return CKError.INTERNAL_ERROR
+        elif status_code == 503:
+            return CKError.TRY_AGAIN_LATER
+        else:
+            return None
+
+    def __error_reason_from_satus_code(self, status_code):   # noqa
         if status_code is None:
             return None
         elif status_code == 403:
