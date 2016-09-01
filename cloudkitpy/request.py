@@ -117,16 +117,7 @@ class Request:
             json_dict = r.json()
         except Exception, e:
             logger.error(
-                """Failed to parse JSON from CloudKit response: %s
-                Status Code: %s, Operation Subpath: %s
-                """ % (
-                    str(e),
-                    status_code,
-                    operation_subpath
-                )
-            )
-            logger.debug(
-                "Payload: %s" % payload
+                "Failed to parse JSON from CloudKit response: %s" % str(e)
             )
         result = Result(json_dict, status_code, payload)
         if result.is_failure is True:
