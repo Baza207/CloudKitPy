@@ -101,6 +101,7 @@ class Request:
         )
 
         headers = {
+            'Content-Type': 'application/json',
             'X-Apple-CloudKit-Request-KeyID': container.server_to_server_key,
             'X-Apple-CloudKit-Request-ISO8601Date': date,
             'X-Apple-CloudKit-Request-SignatureV1': signed_message
@@ -108,10 +109,16 @@ class Request:
 
         if method == "POST":
             r = requests.post(url, headers=headers, data=payload)
-        elif method == "GET":
+        else:   # Always default to GET
             r = requests.get(url, headers=headers, data=payload)
-        json_dict = json.loads(r.text)
-        result = Result(json_dict)
+        try:
+            json_dict = r.json()
+        except Exception, e:
+            logger.error(
+                "Failed to parse JSON from CloudKit response: %s" %
+                str(e)
+            )
+        result = Result(json_dict, payload)
         if result.is_failure is True:
             logger.error("Request failed: %s" % result.error.reason)
             logger.debug("Request failed payload: %s" % payload)

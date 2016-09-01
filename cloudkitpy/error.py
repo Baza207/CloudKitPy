@@ -25,8 +25,9 @@ class CKError:
     record_name = None
     subscription_id = None
     zone_id = None
+    payload = None
 
-    def __init__(self, json):
+    def __init__(self, json, payload):
         self.ck_error_code = parse(json, 'ckErrorCode')
         self.is_error = self.ck_error_code is not None
         self.server_error_code = parse(json, 'serverErrorCode')
@@ -41,6 +42,7 @@ class CKError:
         if zone_id_json is not None:
             zone_id = ZoneID(zone_id_json)
             self.zone_id = zone_id
+        self.payload = payload
 
     ACCESS_DENIED = 'ACCESS_DENIED'
     ATOMIC_ERROR = 'ATOMIC_ERROR'
