@@ -111,12 +111,14 @@ class Request:
             r = requests.post(url, headers=headers, data=payload)
         else:   # Always default to GET
             r = requests.get(url, headers=headers, data=payload)
+        json_dict = None
         try:
             json_dict = r.json()
         except Exception, e:
             logger.error(
-                "Failed to parse JSON from CloudKit response: %s" %
-                str(e)
+                "Failed to parse JSON from CloudKit response: %s - %s" %
+                str(e),
+                operation_subpath
             )
         result = Result(json_dict, payload)
         if result.is_failure is True:
