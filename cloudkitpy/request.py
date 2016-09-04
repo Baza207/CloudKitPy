@@ -116,6 +116,9 @@ class Request:
         try:
             json_dict = r.json()
         except:
+            pass
+
+        if status_code == 500:
             logger.error(
                 "Status Code: %s\nResponse: %s\nHeaders: %s\nHistory: %s" & (
                     status_code,
@@ -124,6 +127,7 @@ class Request:
                     r.history
                 )
             )
+
         result = Result(json_dict, status_code, payload)
         if result.is_failure is True:
             logger.debug("Request failed payload: %s" % payload)
