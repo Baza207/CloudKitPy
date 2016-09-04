@@ -44,12 +44,14 @@ class CloudKit:
             self.__containers.append(container)
 
         count = len(self.__containers)
-        plural = ''
-        if count != 1:
-            plural = 's'
-        self.logger.info(
-            "CloudKit: %d container%s configured" % (count, plural)
-        )
+        if count == 1:
+            self.logger.info(
+                "%s container configured" % (self.__containers[0].environment)
+            )
+        else:
+            self.logger.info(
+                "%d containers configured" % (count)
+            )
 
     def __setup_logger(
         self,
