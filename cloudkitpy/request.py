@@ -118,7 +118,7 @@ class Request:
         except:
             pass
 
-        if status_code == 500:
+        if status_code != 200:
             logger.error(
                 "Status Code: %s\nResponse: %s\nHeaders: %s\nHistory: %s" & (
                     status_code,
