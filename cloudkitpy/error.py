@@ -28,8 +28,9 @@ class CKError:
     payload = None
     status_code = None
     status_code_reason = None
+    request = None
 
-    def __init__(self, json, status_code, payload):
+    def __init__(self, json, status_code, request, payload):
         if json is not None:
             self.ck_error_code = parse(json, 'ckErrorCode')
             self.is_error = self.ck_error_code is not None
@@ -54,6 +55,7 @@ class CKError:
             self.server_error_code = self.__error_from_satus_code(status_code)
         if self.reason is None:
             self.reason = self.status_code_reason
+        self.request = request
 
     def __error_from_satus_code(self, status_code):   # noqa
         if status_code is None:

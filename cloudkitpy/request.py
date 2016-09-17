@@ -128,7 +128,7 @@ class Request:
                 )
             )
 
-        result = Result(json_dict, status_code, payload)
+        result = Result(json_dict, status_code, r, payload)
         if result.is_failure is True:
             logger.debug("Request failed payload: %s" % payload)
         elif result.is_success is True:
