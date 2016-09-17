@@ -118,15 +118,6 @@ class Request:
         except:
             pass
 
-        if status_code != 200:
-            logger.error(
-                "Status Code: %s\nResponse: %s\nHeaders: %s" & (
-                    status_code,
-                    r.text,
-                    str(r.headers)
-                )
-            )
-
         result = Result(json_dict, status_code, r, payload)
         if result.is_failure is True:
             logger.debug("Request failed payload: %s" % payload)
