@@ -123,7 +123,7 @@ class Request:
                 "Status Code: %s\nResponse: %s\nHeaders: %s" & (
                     status_code,
                     r.text,
-                    r.headers
+                    json.dumps(r.headers, indent=4)
                 )
             )
 
