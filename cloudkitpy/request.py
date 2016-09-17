@@ -120,11 +120,10 @@ class Request:
 
         if status_code != 200:
             logger.error(
-                "Status Code: %s\nResponse: %s\nHeaders: %s\nHistory: %s" & (
+                "Status Code: %s\nResponse: %s\nHeaders: %s" & (
                     status_code,
                     r.text,
-                    r.headers,
-                    r.history
+                    r.headers
                 )
             )
 
