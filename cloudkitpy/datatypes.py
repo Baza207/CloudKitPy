@@ -38,14 +38,28 @@ class Asset:
 
     def json(self):
         """Create a JSON object from the object's properties."""
-        return {
+        if not all([
+            self.file_checksum,
+            self.size,
+            self.reference_checksum,
+            self.receipt
+        ]):
+            return None
+
+        json_object = {
             'fileChecksum': self.file_checksum,
             'size': self.size,
             'referenceChecksum': self.reference_checksum,
-            'wrappingKey': self.wrapping_key,
-            'receipt': self.receipt,
-            'downloadURL': self.download_url
+            'receipt': self.receipt
         }
+
+        if self.wrapping_key is not None:
+            json_object['wrappingKey'] = self.wrapping_key
+
+        if self.download_url is not None:
+            json_object['downloadURL'] = self.download_url
+
+        return json_object
 
 
 class Filter:
@@ -69,12 +83,23 @@ class Filter:
 
     def json(self):
         """Create a JSON object from the object's properties."""
-        return {
+        if not all([
+            self.comparator,
+            self.field_name,
+            self.field_value
+        ]):
+            return None
+
+        json_object = {
             'comparator': self.comparator,
             'fieldName': self.field_name,
-            'fieldValue': self.field_value,
-            'distance': self.distance
+            'fieldValue': self.field_value
         }
+
+        if self.distance is not None:
+            json_object['distance'] = self.distance
+
+        return json_object
 
 
 class Location:
@@ -108,16 +133,36 @@ class Location:
 
     def json(self):
         """Create a JSON object from the object's properties."""
-        return {
+        if not all([
+            self.latitude,
+            self.longitude
+        ]):
+            return None
+
+        json_object = {
             'latitude': self.latitude,
-            'longitude': self.longitude,
-            'horizontalAccuracy': self.horizontal_accuracy,
-            'verticalAccuracy': self.vertical_accuracy,
-            'altitude': self.altitude,
-            'speed': self.speed,
-            'course': self.course,
-            'timestamp': self.timestamp
+            'longitude': self.longitude
         }
+
+        if self.horizontal_accuracy is not None:
+            json_object['horizontalAccuracy'] = self.horizontal_accuracy
+
+        if self.vertical_accuracy is not None:
+            json_object['verticalAccuracy'] = self.vertical_accuracy
+
+        if self.altitude is not None:
+            json_object['altitude'] = self.altitude
+
+        if self.speed is not None:
+            json_object['speed'] = self.speed
+
+        if self.course is not None:
+            json_object['course'] = self.course
+
+        if self.timestamp is not None:
+            json_object['timestamp'] = self.timestamp
+
+        return json_object
 
 
 class NotificationInfo:
@@ -160,16 +205,44 @@ class NotificationInfo:
 
     def json(self):
         """Create a JSON object from the object's properties."""
-        return {
-            'alertBody': self.alert_body,
-            'alertLocalizationKey': self.alert_localization_key,
-            'alertLocalizationArgs': self.alert_localization_args,
-            'alertActionLocalizationKey': self.alert_action_localization_key,
-            'alertLaunchImage': self.alert_launch_image,
-            'soundName': self.sound_name,
-            'shouldBadge': self.should_badge,
-            'shouldSendContentAvailable': self.should_send_content_available
-        }
+        json_object = {}
+
+        if self.alert_body is not None:
+            json_object['alertBody'] = self.alert_body
+
+        if self.alert_localization_key is not None:
+            json_object['alertLocalizationKey'] = self.alert_localization_key
+
+        if self.alert_localization_args is not None:
+            json_object['alertLocalizationArgs'] = self.alert_localization_args
+
+        if self.alert_action_localization_key is not None:
+            json_object[
+                'alertActionLocalizationKey'
+            ] = self.alert_action_localization_key
+
+        if len(json_object) == 0:
+            return None
+
+        if self.alert_launch_image is not None:
+            json_object['alertLaunchImage'] = self.alert_launch_image
+
+        if self.sound_name is not None:
+            json_object['soundName'] = self.sound_name
+
+        if self.should_badge is not None:
+            json_object['shouldBadge'] = self.should_badge
+        else:
+            json_object['shouldBadge'] = False
+
+        if self.should_send_content_available is not None:
+            json_object[
+                'shouldSendContentAvailable'
+            ] = self.should_send_content_available
+        else:
+            json_object['shouldSendContentAvailable'] = False
+
+        return json_object
 
 
 class Query:
@@ -203,6 +276,11 @@ class Query:
 
     def json(self):
         """Create a JSON object from the object's properties."""
+        if not all([
+            self.record_type
+        ]):
+            return None
+
         filter_by = []
         if self.filter_by is not None and len(self.filter_by) > 0:
             for query_filter in self.filter_by:
@@ -243,15 +321,32 @@ class Record:
 
     def json(self):
         """Create a JSON object from the object's properties."""
-        return {
-            'recordName': self.record_name,
-            'recordType': self.record_type,
-            'recordChangeTag': self.record_change_tag,
-            'fields': self.fields,
-            'created': self.created,
-            'modified': self.modified,
-            'deleted': self.deleted
+        if self.record_name is None and self.record_type is None:
+            return None
+
+        json_object = {
+            'fields': self.fields
         }
+
+        if self.record_name is not None:
+            json_object['recordName'] = self.record_name
+
+        if self.record_type is not None:
+            json_object['recordType'] = self.record_type
+
+        if self.record_change_tag is not None:
+            json_object['recordChangeTag'] = self.record_change_tag
+
+        if self.created is not None:
+            json_object['created'] = self.created
+
+        if self.modified is not None:
+            json_object['modified'] = self.modified
+
+        if self.deleted is not None:
+            json_object['deleted'] = self.deleted
+
+        return json_object
 
 
 class Reference:
@@ -269,11 +364,21 @@ class Reference:
 
     def json(self):
         """Create a JSON object from the object's properties."""
-        return {
+        if not all([
+            self.record_name,
+            self.action
+        ]):
+            return None
+
+        json_object = {
             'recordName': self.record_name,
-            'zoneID': self.zone_id,
             'action': self.action
         }
+
+        if self.zone_id is not None:
+            json_object['zoneID'] = self.zone_id
+
+        return json_object
 
 
 class SortDescriptor:
@@ -294,11 +399,24 @@ class SortDescriptor:
 
     def json(self):
         """Create a JSON object from the object's properties."""
-        return {
-            'fieldName': self.field_name,
-            'ascending': self.ascending,
-            'relativeLocation': self.relative_location
+        if not all([
+            self.field_name
+        ]):
+            return None
+
+        json_object = {
+            'fieldName': self.field_name
         }
+
+        if self.ascending is not None:
+            json_object['ascending'] = self.ascending
+        else:
+            json_object['ascending'] = True
+
+        if self.relative_location is not None:
+            json_object['relativeLocation'] = self.relative_location
+
+        return json_object
 
 
 class Subscription:
@@ -331,16 +449,41 @@ class Subscription:
 
     def json(self):
         """Create a JSON object from the object's properties."""
-        return {
-            'zoneID': self.zone_id,
-            'subscriptionID': self.subscription_id,
-            'subscriptionType': self.subscription_type,
-            'query': self.query.json(),
-            'firesOn': self.fires_on,
-            'firesOnce': self.fires_once,
-            'notificationInfo': self.notification_info.json(),
-            'zoneWide': self.zone_wide
+        if not all([
+            self.subscription_type
+        ]):
+            return None
+
+        json_object = {
+            'subscriptionType': self.subscription_type
         }
+
+        if self.zone_id is None:
+            json_object['zoneID'] = self.zone_id
+
+        if self.subscription_id is not None:
+            json_object['subscriptionID'] = self.subscription_id
+
+        query = self.query.json()
+        if query is not None:
+            json_object['query'] = query
+
+        if self.fires_on is not None:
+            json_object['firesOn'] = self.fires_on
+
+        if self.fires_once is not None:
+            json_object['firesOnce'] = self.fires_once
+        else:
+            json_object['firesOnce'] = False
+
+        notification_info = self.notification_info.json()
+        if notification_info is not None:
+            json_object['notificationInfo'] = notification_info
+
+        if self.zone_wide is not None:
+            json_object['zoneWide'] = self.zone_wide
+
+        return json_object
 
 
 class UserInfo:
@@ -362,13 +505,27 @@ class UserInfo:
 
     def json(self):
         """Create a JSON object from the object's properties."""
-        return {
-            'userRecordName': self.user_record_name,
-            'firstName': self.first_name,
-            'lastName': self.last_name,
-            'emailAddress': self.email_address,
-            'isDiscoverable': self.is_discoverable
-        }
+        json_object = {}
+
+        if self.user_record_name is not None:
+            json_object['userRecordName'] = self.user_record_name
+
+        if self.first_name is not None:
+            json_object['firstName'] = self.first_name
+
+        if self.last_name is not None:
+            json_object['lastName'] = self.last_name
+
+        if self.email_address is not None:
+            json_object['emailAddress'] = self.email_address
+
+        if self.is_discoverable is not None:
+            json_object['isDiscoverable'] = self.is_discoverable
+
+        if len(json_object) == 0:
+            return None
+
+        return json_object
 
 
 class Zone:
@@ -386,11 +543,25 @@ class Zone:
 
     def json(self):
         """Create a JSON object from the object's properties."""
-        return {
-            'zoneID': self.zone_id.json(),
-            'syncToken': self.sync_token,
-            'atomic': self.atomic
+        zone_id = self.zone_id.json()
+        if not all([
+            zone_id
+        ]):
+            return None
+
+        json_object = {
+            'zoneID': zone_id
         }
+
+        if self.sync_token is not None:
+            json_object['syncToken'] = self.sync_token
+
+        if self.atomic is not None:
+            json_object['atomic'] = self.atomic
+        else:
+            json_object['atomic'] = False
+
+        return json_object
 
 
 class ZoneID:
@@ -404,6 +575,11 @@ class ZoneID:
 
     def json(self):
         """Create a JSON object from the object's properties."""
+        if not all([
+            self.zone_name
+        ]):
+            return None
+
         return {
             'zoneName': self.zone_name,
         }
