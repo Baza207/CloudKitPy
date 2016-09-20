@@ -281,21 +281,27 @@ class Query:
         ]):
             return None
 
-        filter_by = []
+        json_object = {
+            'recordType': self.record_type
+        }
+
         if self.filter_by is not None and len(self.filter_by) > 0:
+            filter_by = []
+
             for query_filter in self.filter_by:
                 filter_by.append(query_filter.json())
 
-        sort_by = []
+            json_object['filterBy'] = filter_by
+
         if self.sort_by is not None and len(self.sort_by) > 0:
+            sort_by = []
+
             for sort_descriptor in self.sort_by:
                 sort_by.append(sort_descriptor.json())
 
-        return {
-            'recordType': self.record_type,
-            'filterBy': filter_by,
-            'sortBy': sort_by
-        }
+            json_object['sortBy'] = sort_by
+
+        return json_object
 
 
 class Record:
