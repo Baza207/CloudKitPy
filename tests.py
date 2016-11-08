@@ -26,6 +26,7 @@ from cloudkitpy.datatypes import Zone
 from cloudkitpy.datatypes import ZoneID
 from cloudkitpy.datatypes import CloudKitConfig
 from cloudkitpy.datatypes import ContainerConfig
+from cloudkitpy.request import Request
 
 
 class CKValueTests(unittest.TestCase):
@@ -592,6 +593,65 @@ class DataTypeTests(unittest.TestCase):
             cert_path=cert_path
         ).json()
         self.failUnless(comp_config == gen_config)
+
+
+class RequestTests(unittest.TestCase):
+
+    hello_world = 'Hello World!'
+    expected_encode = 'SGVsbG8gV29ybGQh'
+    expected_hash = '7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069' # noqa
+    expected_encode_hash = 'f4OxZX/x/FO5LcGBSKHWXfwtSx+j1ncoSt3SABJtkGk='
+    expected_path = '/database/1/iCloud.com.company.app/DEVELOPMENT/public/records/modify' # noqa
+    date = Request._Request__iso_date()
+    expected_message = '%s:%s:%s' % (
+        date,
+        expected_encode_hash,
+        expected_path
+    )
+
+    def test_encode(self):
+        encoded_string = Request._Request__encode_string(
+            self.hello_world
+        )
+        self.failUnless(encoded_string == self.expected_encode)
+
+    def test_hash(self):
+        hashed_string = Request._Request__hash_string(
+            self.hello_world
+        )
+        hashed_string = "".join("{:02x}".format(ord(c)) for c in hashed_string)
+        self.failUnless(hashed_string == self.expected_hash)
+
+    def test_encode_and_hash(self):
+        encoded_hashed_string = Request._Request__encode_and_hash_string(
+            self.hello_world
+        )
+        self.failUnless(encoded_hashed_string == self.expected_encode_hash)
+
+    def test_cloud_kit_path(self):
+        container_config = ContainerConfig(
+            'iCloud.com.company.app',
+            CloudKit.DEVELOPMENT_ENVIRONMENT,
+            server_to_server_key='1234567890qwerty',
+            cert_path='eckey.pem'
+        )
+        cloudkit_config = CloudKitConfig([container_config])
+        ck = CloudKit(cloudkit_config)
+        container = ck.get_default_container()
+        path = Request._Request__cloud_kit_path(
+            container.public_cloud_database.database_type,
+            container,
+            'records/modify'
+        )
+        self.failUnless(path == self.expected_path)
+
+    def test_create_message(self):
+        message = Request._Request__create_message(
+            self.date,
+            self.hello_world,
+            self.expected_path
+        )
+        self.failUnless(message == self.expected_message)
 
 
 def main():
