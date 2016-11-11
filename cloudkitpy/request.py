@@ -29,15 +29,15 @@ class Request:
         return datetime.utcnow().replace(microsecond=0).isoformat() + 'Z'
 
     @classmethod
-    def __encode_string(cls, string):
-        return base64.b64encode(string)
-
-    @classmethod
     def __hash_string(cls, string):
         return hashlib.sha256(string).digest()
 
     @classmethod
-    def __encode_and_hash_string(cls, string):
+    def __encode_string(cls, string):
+        return base64.b64encode(string)
+
+    @classmethod
+    def __hash_encode_string(cls, string):
         hashed = cls.__hash_string(string)
         encoded = cls.__encode_string(hashed)
         return encoded
@@ -60,7 +60,7 @@ class Request:
 
     @classmethod
     def __create_message(cls, date, payload, path):
-        request_body = cls.__encode_and_hash_string(payload)
+        request_body = cls.__hash_encode_string(payload)
         return '%s:%s:%s' % (date, request_body, path)
 
     @classmethod
@@ -72,7 +72,7 @@ class Request:
             hashfunc=hashlib.sha256,
             sigencode=ecdsa.util.sigencode_der
         )
-        signature = base64.b64encode(signature)
+        signature = cls.__encode_string(signature)
         return signature
 
     @classmethod

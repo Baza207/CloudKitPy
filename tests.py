@@ -600,12 +600,12 @@ class RequestTests(unittest.TestCase):
     hello_world = 'Hello World!'
     expected_encode = 'SGVsbG8gV29ybGQh'
     expected_hash = '7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069' # noqa
-    expected_encode_hash = 'f4OxZX/x/FO5LcGBSKHWXfwtSx+j1ncoSt3SABJtkGk='
-    expected_path = '/database/1/iCloud.com.company.app/DEVELOPMENT/public/records/modify' # noqa
+    expected_hash_encode = 'f4OxZX/x/FO5LcGBSKHWXfwtSx+j1ncoSt3SABJtkGk='
+    expected_path = '/database/1/iCloud.com.company.app/DEVELOPMENT/public/users/current' # noqa
     date = Request._Request__iso_date()
     expected_message = '%s:%s:%s' % (
         date,
-        expected_encode_hash,
+        expected_hash_encode,
         expected_path
     )
 
@@ -622,11 +622,11 @@ class RequestTests(unittest.TestCase):
         hashed_string = "".join("{:02x}".format(ord(c)) for c in hashed_string)
         self.failUnless(hashed_string == self.expected_hash)
 
-    def test_encode_and_hash(self):
-        encoded_hashed_string = Request._Request__encode_and_hash_string(
+    def test_hash_encode(self):
+        encoded_hashed_string = Request._Request__hash_encode_string(
             self.hello_world
         )
-        self.failUnless(encoded_hashed_string == self.expected_encode_hash)
+        self.failUnless(encoded_hashed_string == self.expected_hash_encode)
 
     def test_cloud_kit_path(self):
         container_config = ContainerConfig(
@@ -641,7 +641,7 @@ class RequestTests(unittest.TestCase):
         path = Request._Request__cloud_kit_path(
             container.public_cloud_database.database_type,
             container,
-            'records/modify'
+            'users/current'
         )
         self.failUnless(path == self.expected_path)
 
