@@ -1,8 +1,6 @@
 # CloudKitPy
 CloudKitPy - A python wrapper around CloudKit Web Services for server-to-server connections.
 
-[![Build Status](https://travis-ci.org/Baza207/CloudKitPy.svg?branch=master)](https://travis-ci.org/Baza207/CloudKitPy)
-
 ## Under Development
 
 This project is still under initial development. This means parts of it may incomplete or not fully tested in it's current state, and probably shouldn't not yet be used in production projects yet.
